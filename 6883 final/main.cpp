@@ -1,14 +1,13 @@
-//
-//  main.cpp
-//  6883 final
-//
-//  Created by 殷相杨 on 4/23/22.
-//
-
 #include <iostream>
+#include "Utils/Utils.hpp"
+#include "Utils/Parser.hpp"
+
+using namespace std;
+using namespace fre;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    Parser parser("config_mac.csv");
+    parser.LoadSymbol("Russell_3000_component_stocks.csv");
+    parser.DownloadData();
     return 0;
 }

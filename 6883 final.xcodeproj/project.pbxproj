@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7A8AADBF2814746B003DAF38 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADBE2814746B003DAF38 /* main.cpp */; };
+		7A8AADCD2814764C003DAF38 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADCB2814764C003DAF38 /* Utils.cpp */; };
+		7A8AADD2281479BF003DAF38 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADD0281479BF003DAF38 /* Parser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +30,10 @@
 		7A8AADC728147523003DAF38 /* Russell_3000_component_stocks.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = Russell_3000_component_stocks.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell_3000_component_stocks.csv"; sourceTree = SOURCE_ROOT; };
 		7A8AADC828147523003DAF38 /* Russell3000EarningsAnnouncements.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = Russell3000EarningsAnnouncements.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell3000EarningsAnnouncements.csv"; sourceTree = SOURCE_ROOT; };
 		7A8AADC928147523003DAF38 /* config_mac.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = config_mac.csv; path = "DerivedData/6883 final/Build/Products/Debug/config_mac.csv"; sourceTree = SOURCE_ROOT; };
+		7A8AADCB2814764C003DAF38 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
+		7A8AADCC2814764C003DAF38 /* Utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
+		7A8AADD0281479BF003DAF38 /* Parser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
+		7A8AADD1281479BF003DAF38 /* Parser.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Parser.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +66,8 @@
 		7A8AADBD2814746B003DAF38 /* 6883 final */ = {
 			isa = PBXGroup;
 			children = (
-				7A8AADC6281474BB003DAF38 /* Utils */,
-				7A8AADC5281474A8003DAF38 /* Models */,
+				7A8AADCF281478C0003DAF38 /* Models */,
+				7A8AADCE281478B3003DAF38 /* Utils */,
 				7A8AADBE2814746B003DAF38 /* main.cpp */,
 				7A8AADC928147523003DAF38 /* config_mac.csv */,
 				7A8AADC728147523003DAF38 /* Russell_3000_component_stocks.csv */,
@@ -70,18 +76,22 @@
 			path = "6883 final";
 			sourceTree = "<group>";
 		};
-		7A8AADC5281474A8003DAF38 /* Models */ = {
+		7A8AADCE281478B3003DAF38 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				7A8AADD0281479BF003DAF38 /* Parser.cpp */,
+				7A8AADD1281479BF003DAF38 /* Parser.hpp */,
+				7A8AADCB2814764C003DAF38 /* Utils.cpp */,
+				7A8AADCC2814764C003DAF38 /* Utils.hpp */,
 			);
-			name = Models;
+			path = Utils;
 			sourceTree = "<group>";
 		};
-		7A8AADC6281474BB003DAF38 /* Utils */ = {
+		7A8AADCF281478C0003DAF38 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Utils;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +152,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A8AADBF2814746B003DAF38 /* main.cpp in Sources */,
+				7A8AADD2281479BF003DAF38 /* Parser.cpp in Sources */,
+				7A8AADCD2814764C003DAF38 /* Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"OTHER_LDFLAGS[arch=*]" = "-lcurl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -269,6 +282,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				"OTHER_LDFLAGS[arch=*]" = "-lcurl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
