@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include "../Models/Stock.hpp"
 
 using namespace std;
 
@@ -40,6 +41,15 @@ namespace fre {
         
             // download data
             int DownloadData();
+        
+            // populate data
+            vector<Stock> PopulateDate();
+        
+            // performe data
+            void ShowData();
+        
+            map<string, string> getData() {return Data;}
+        vector<string> getSymbol() {return Symbol;}
     };
 }
 
