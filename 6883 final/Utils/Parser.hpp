@@ -38,18 +38,19 @@ namespace fre {
             int LoadConfig(string config_file_name);
             // set symbols after bootstrapping
             int LoadSymbol(string symbol_file_name);
+            int multithreadLoadSymbol(vector<string> symbols);
         
             // download data
             int DownloadData();
         
             // populate data
-            vector<Stock> PopulateDate();
+            map<string, Stock> PopulateDate(string symbol_file_name);
         
             // performe data
             void ShowData();
         
             map<string, string> getData() {return Data;}
-        vector<string> getSymbol() {return Symbol;}
+            vector<string> getSymbol() {return Symbol;}
     };
 }
 

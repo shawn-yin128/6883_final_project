@@ -77,6 +77,9 @@ namespace fre {
             factors.push_back(surprise);
             getline(sin, surprise_pct);
             factors.push_back(surprise_pct);
+            if (symbol.empty()) {
+                continue;
+            }
             announcement_map[symbol] = factors;
         }
         return announcement_map;

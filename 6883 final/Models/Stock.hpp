@@ -12,7 +12,11 @@ namespace fre {
     class Stock {
         private:
             string symbol;
+            string announcementDate;
+            int N;
+            bool enough = false;
             vector<Trade> Trades;
+            vector<Trade> used_trades;
         public:
             Stock() : symbol("") {
                 Trades.clear();
@@ -24,6 +28,10 @@ namespace fre {
                 memcpy(this, &stock, sizeof(stock));
             }
             ~Stock() {}
+        
+            void setAnnouncementDate(string date);
+        
+            void setN(int N_) {N = N_;}
         
             void addTrade(const Trade& aTrade);
 

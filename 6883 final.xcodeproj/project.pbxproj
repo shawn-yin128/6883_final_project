@@ -34,6 +34,7 @@
 		2924CB14281B956A00626FC2 /* Russell3000EarningsAnnouncements.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = Russell3000EarningsAnnouncements.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell3000EarningsAnnouncements.csv"; sourceTree = "<group>"; };
 		2924CB15281B956A00626FC2 /* config_mac.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = config_mac.csv; path = "DerivedData/6883 final/Build/Products/Debug/config_mac.csv"; sourceTree = "<group>"; };
 		2924CB16281B956A00626FC2 /* Russell_3000_component_stocks.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = Russell_3000_component_stocks.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell_3000_component_stocks.csv"; sourceTree = "<group>"; };
+		29CCC46228222A50002815E3 /* Service.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		7A8AADBB2814746B003DAF38 /* 6883 final */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "6883 final"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8AADBE2814746B003DAF38 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		7A8AADCB2814764C003DAF38 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 				7A8AADCF281478C0003DAF38 /* Models */,
 				7A8AADCE281478B3003DAF38 /* Utils */,
 				7A8AADBE2814746B003DAF38 /* main.cpp */,
+				29CCC46228222A50002815E3 /* Service.h */,
 			);
 			path = "6883 final";
 			sourceTree = "<group>";
