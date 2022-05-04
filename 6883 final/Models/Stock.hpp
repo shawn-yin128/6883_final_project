@@ -15,6 +15,8 @@ namespace fre {
             string announcementDate;
             vector<Trade> trades;
             vector<Trade> validTrades;
+            vector<Trade> AR;
+
         public:
             Stock() : symbol("") {
                 trades.clear();
@@ -38,6 +40,7 @@ namespace fre {
             const string getSymbol(void) const;
             const vector<Trade>& getTrades(void) const;
             const vector<Trade>& getValidTrade(void) const;
+            const vector<Trade>& getAR(void) const;
     };
 }
 

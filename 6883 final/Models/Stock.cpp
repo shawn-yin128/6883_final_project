@@ -23,6 +23,10 @@ namespace fre {
         return validTrades;
     }
 
+    const vector<Trade>& Stock::getAR(void) const {
+        return AR;
+    }
+
     void Stock::setAnnouncementDate(string date) {
         announcementDate = converTime(date);
     }
