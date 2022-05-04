@@ -13,8 +13,6 @@ namespace fre {
         private:
             string symbol;
             string announcementDate;
-            int N;
-            bool enough = false;
             vector<Trade> Trades;
             vector<Trade> used_trades;
         public:
@@ -31,11 +29,15 @@ namespace fre {
         
             void setAnnouncementDate(string date);
         
-            void setN(int N_) {N = N_;}
-        
             void addTrade(const Trade& aTrade);
+        
+            const string getSymbol(void) const;
 
             const vector<Trade>& getTrade(void) const;
+        
+            const vector<Trade>& getUsedTrade(void) const;
+        
+            bool computeUsedData(int N);
     };
 }
 

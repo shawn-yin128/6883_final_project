@@ -9,6 +9,15 @@
 using namespace std;
 
 namespace fre {
+    string converTime(string date) {
+        vector<string> dmy = split(date, '-');
+        map<string, string> monthMap = {{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, {"Apr", "04"}, {"May", "05"}, {"Jun", "06"}, {"Jul", "07"}, {"Aug", "08"}, {"Sep", "09"}, {"Oct", "10"}, {"Nov", "11"}, {"Dec", "12"}};
+        string day = dmy[0].size() == 1 ? "0"+dmy[0] : dmy[0];
+        string month = monthMap[dmy[1]];
+        string year = "20"+dmy[2];
+        return year + "-" + month + "-" + day;
+    }
+
     vector<string> split(string text, char delim) {
         string line;
         vector<string> vec;

@@ -8,6 +8,7 @@
 using namespace std;
 
 namespace fre {
+    string converTime(string date);
     vector<string> split(string text, char delim);
     size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp);
     map<string, string> ProcessConfigFile(string config_file_name);

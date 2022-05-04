@@ -16,9 +16,21 @@ namespace fre {
     int Parser::LoadConfig(string config_file_name) {
         map<string, string> config_map = ProcessConfigFile(config_file_name);
         API_token = config_map["api_token"];
+        if (!API_token.empty() && API_token[API_token.length() - 1] == '\r') {
+            API_token.erase(API_token.size() - 1);
+        }
         URL_common = config_map["url_common"];
+        if (!URL_common.empty() && URL_common[URL_common.length() - 1] == '\r') {
+            URL_common.erase(URL_common.size() - 1);
+        }
         Start = config_map["start_date"];
+        if (!Start.empty() && Start[Start.length() - 1] == '\r') {
+            Start.erase(Start.size() - 1);
+        }
         End = config_map["end_date"];
+        if (!End.empty() && End[End.length() - 1] == '\r') {
+            End.erase(End.size() - 1);
+        }
         return 0;
     }
 
@@ -30,7 +42,7 @@ namespace fre {
         return 0;
     }
 
-    int Parser::multithreadLoadSymbol(vector<string> symbols) {
+    int Parser::LoadSymbol(vector<string> symbols) {
         Symbol = symbols;
         return 0;
     }
@@ -65,11 +77,15 @@ namespace fre {
         map<string, Stock> Stocks;
         map<string, vector<string>> annMap = ProcessAnnouncementFile(symbol_file_name);
         for (string str : Symbol) {
-            cout << str << endl;
             Stock stock(str);
             vector<string> dailyData = split(Data[str], '\n'); // daily
-            stock.setAnnouncementDate(annMap[str][1]);
+            stock.setAnnouncementDate(annMap[str][0]);
+            int count = 0;
             for (string data : dailyData) {
+                if (count == 0) {
+                    count++;
+                    continue;
+                }
                 vector<string> fields = split(data, ',');
                 if (fields.size() == 1) {
                     continue;
@@ -83,6 +99,7 @@ namespace fre {
                 int volume = stoi(fields[6]);
                 Trade trade(date, open, high, low, close, adjClose, volume);
                 stock.addTrade(trade);
+                count++;
             }
             Stocks[str] = stock;
         }

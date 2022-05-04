@@ -8,6 +8,10 @@
 using namespace std;
 using namespace fre;
 
+const string CONFIG = "config_mac.csv";
+const string SYMBOL = "Russell_3000_component_stocks.csv";
+const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+
 int main(int argc, const char * argv[]) {
     int selection;
     const string MENU = string("Menu\n")
@@ -22,6 +26,9 @@ int main(int argc, const char * argv[]) {
     + "8 - Exit.\n\n";
     
     cout << MENU;
+    
+    map<string, Stock> stocks;
+    map<string, Stock> validStocks;
 
     bool run = 1;
     while (run) {
@@ -29,6 +36,18 @@ int main(int argc, const char * argv[]) {
         cin >> selection;
         switch (selection) {
             case 1: {
+                int N;
+                cout << "Please enter N: ";
+                cin >> N;
+                Parser parser(CONFIG);
+                parser.LoadSymbol(ANNOUNCEMENT);
+                parser.DownloadData();
+                stocks = parser.PopulateDate(ANNOUNCEMENT);
+                for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
+                    if (itr->second.computeUsedData(N)) {
+                        validStocks[itr->second.getSymbol()] = itr->second;
+                    }
+                }
                 break;
             }
             case 2: {

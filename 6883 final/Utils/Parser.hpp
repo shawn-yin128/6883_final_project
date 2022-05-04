@@ -38,7 +38,7 @@ namespace fre {
             int LoadConfig(string config_file_name);
             // set symbols after bootstrapping
             int LoadSymbol(string symbol_file_name);
-            int multithreadLoadSymbol(vector<string> symbols);
+            int LoadSymbol(vector<string> symbols);
         
             // download data
             int DownloadData();
