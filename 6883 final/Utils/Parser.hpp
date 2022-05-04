@@ -12,45 +12,51 @@ namespace fre {
     class Parser {
         private:
             // in config file
-            string API_token;
-            string URL_common;
+            string apiToken;
+            string urlCommon;
             
             // user input
-            vector<string> Symbol;
-            string Start;
-            string End;
+            vector<string> symbolVector;
+            string startDate;
+            string endDate;
             
             // plain data
-            map<string, string> Data;
+            map<string, string> plainData;
         
+            // IWV
+            Stock IWV;
+        
+            // store announcement data
+            map<string, vector<string>> annMap;
+            
             // constructor that should not be used;
             Parser() {}
             Parser(const Parser& parser) {}
             
         public:
             // constructor with config file
-            Parser(string config_file) {
-                LoadConfig(config_file);
+            Parser(string configFile) {
+                loadConfig(configFile);
             }
             
             // load config
             // set api and url
-            int LoadConfig(string config_file_name);
+            int loadConfig(string configFile);
             // set symbols after bootstrapping
-            int LoadSymbol(string symbol_file_name);
-            int LoadSymbol(vector<string> symbols);
+            int loadSymbol(string configFile);
+            int loadSymbol(vector<string> symbols);
         
             // download data
-            int DownloadData();
+            int downloadData();
         
             // populate data
-            map<string, Stock> PopulateDate(string symbol_file_name);
+            map<string, Stock> populateDate();
         
-            // performe data
-            void ShowData();
-        
-            map<string, string> getData() {return Data;}
-            vector<string> getSymbol() {return Symbol;}
+            // getter
+            map<string, string> getData() {return plainData;}
+            vector<string> getSymbol() {return symbolVector;}
+            Stock getIWV() {return IWV;}
+            map<string, vector<string>> getAnnMap() {return annMap;}
     };
 }
 

@@ -27,8 +27,10 @@ int main(int argc, const char * argv[]) {
     
     cout << MENU;
     
-    map<string, Stock> stocks;
-    map<string, Stock> validStocks;
+    map<string, Stock> beat;
+    map<string, Stock> miss;
+    map<string, Stock> meet;
+    Stock IWV;
 
     bool run = 1;
     while (run) {
@@ -36,21 +38,49 @@ int main(int argc, const char * argv[]) {
         cin >> selection;
         switch (selection) {
             case 1: {
+                map<string, Stock> stocks;
+                map<string, Stock> validStocks;
                 int N;
                 cout << "Please enter N: ";
                 cin >> N;
+                
+                // parse all data and 2N+1 interval data
                 Parser parser(CONFIG);
-                parser.LoadSymbol(ANNOUNCEMENT);
-                parser.DownloadData();
-                stocks = parser.PopulateDate(ANNOUNCEMENT);
+                parser.loadSymbol(ANNOUNCEMENT);
+                parser.downloadData();
+                stocks = parser.populateDate();
+                IWV = parser.getIWV();
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         validStocks[itr->second.getSymbol()] = itr->second;
                     }
                 }
+                
+                // sort and group
+                map<string, vector<string>> annMap = parser.getAnnMap();
+                map<string, float> surpriseMap;
+                for (map<string, Stock>::iterator itr = validStocks.begin(); itr != validStocks.end(); itr++) {
+                    string symbol = itr->first;
+                    string surprise = annMap[symbol][5];
+                    if (!surprise.empty() && surprise[surprise.length() - 1] == '\r') {
+                        surprise.erase(surprise.size() - 1);
+                    }
+                    surpriseMap[symbol] = stod(surprise);
+                }
+                vector<string> orderedStocks = sort(surpriseMap);
+                for (int i = 0; i < orderedStocks.size(); i++) {
+                    if (i < orderedStocks.size()/3) {
+                        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                    } else if (i >= orderedStocks.size()/3 && i < 2*orderedStocks.size()/3) {
+                        meet[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                    } else {
+                        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                    }
+                }
                 break;
             }
             case 2: {
+                
                 break;
             }
             case 3: {

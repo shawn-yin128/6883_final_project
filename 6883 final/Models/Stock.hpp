@@ -13,31 +13,31 @@ namespace fre {
         private:
             string symbol;
             string announcementDate;
-            vector<Trade> Trades;
-            vector<Trade> used_trades;
+            vector<Trade> trades;
+            vector<Trade> validTrades;
         public:
             Stock() : symbol("") {
-                Trades.clear();
+                trades.clear();
             }
             Stock(string symbol_) : symbol(symbol_) {
-                Trades.clear();
+                trades.clear();
             }
             Stock(const Stock& stock) {
                 memcpy(this, &stock, sizeof(stock));
             }
             ~Stock() {}
         
-            void setAnnouncementDate(string date);
-        
             void addTrade(const Trade& aTrade);
         
-            const string getSymbol(void) const;
-
-            const vector<Trade>& getTrade(void) const;
-        
-            const vector<Trade>& getUsedTrade(void) const;
-        
             bool computeUsedData(int N);
+            
+            // setter
+            void setAnnouncementDate(string date);
+        
+            // getter
+            const string getSymbol(void) const;
+            const vector<Trade>& getTrades(void) const;
+            const vector<Trade>& getValidTrade(void) const;
     };
 }
 

@@ -8,19 +8,19 @@ using namespace std;
 
 namespace fre {
     void Stock::addTrade(const Trade& aTrade) {
-        Trades.push_back(aTrade);
+        trades.push_back(aTrade);
     }
 
     const string Stock::getSymbol(void) const {
         return symbol;
     }
 
-    const vector<Trade>& Stock::getTrade(void) const {
-        return Trades;
+    const vector<Trade>& Stock::getTrades(void) const {
+        return trades;
     }
 
-    const vector<Trade>& Stock::getUsedTrade(void) const {
-        return used_trades;
+    const vector<Trade>& Stock::getValidTrade(void) const {
+        return validTrades;
     }
 
     void Stock::setAnnouncementDate(string date) {
@@ -28,13 +28,13 @@ namespace fre {
     }
 
     bool Stock::computeUsedData(int N) {
-        for (vector<Trade>::iterator itr = Trades.begin(); itr != Trades.end(); itr++) {
-            if (itr->GetDate() == announcementDate) {
-                if (itr - Trades.begin() < N || Trades.end() - itr < N) {
+        for (vector<Trade>::iterator itr = trades.begin(); itr != trades.end(); itr++) {
+            if (itr->getDate() == announcementDate) {
+                if (itr - trades.begin() < N || trades.end() - itr < N) {
                     return false;
                 } else {
                     for (auto itr2 = itr - N; itr2 <= itr + N; itr2++) {
-                        used_trades.push_back(*itr2);
+                        validTrades.push_back(*itr2);
                     }
                     return true;
                 }
