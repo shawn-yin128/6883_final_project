@@ -15,11 +15,11 @@ namespace fre {
         return symbol;
     }
 
-    const vector<Trade>& Stock::getTrades(void) const {
+    const vector<Trade> Stock::getTrades(void) const {
         return trades;
     }
 
-    const vector<Trade>& Stock::getValidTrade(void) const {
+    const vector<Trade> Stock::getValidTrade(void) const {
         return validTrades;
     }
 

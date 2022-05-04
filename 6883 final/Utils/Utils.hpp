@@ -8,8 +8,8 @@
 using namespace std;
 
 namespace fre {
-    bool cmp(pair<string, float>& a, pair<string, float>& b);
-    vector<string> sort(map<string, float>& M);
+    bool cmp(pair<string, float> a, pair<string, float> b);
+    vector<string> sort(map<string, float> M);
 
     string converTime(string date);
     vector<string> split(string text, char delim);

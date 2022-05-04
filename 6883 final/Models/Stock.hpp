@@ -23,7 +23,10 @@ namespace fre {
                 trades.clear();
             }
             Stock(const Stock& stock) {
-                memcpy(this, &stock, sizeof(stock));
+                symbol = stock.symbol;
+                announcementDate = stock.announcementDate;
+                trades = stock.trades;
+                validTrades = stock.validTrades;
             }
             ~Stock() {}
         
@@ -36,8 +39,8 @@ namespace fre {
         
             // getter
             const string getSymbol(void) const;
-            const vector<Trade>& getTrades(void) const;
-            const vector<Trade>& getValidTrade(void) const;
+            const vector<Trade> getTrades(void) const;
+            const vector<Trade> getValidTrade(void) const;
     };
 }
 

@@ -38,6 +38,7 @@ namespace fre {
             Parser(string configFile) {
                 loadConfig(configFile);
             }
+            ~Parser(){}
             
             // load config
             // set api and url

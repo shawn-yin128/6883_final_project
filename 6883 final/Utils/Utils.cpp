@@ -9,11 +9,11 @@
 using namespace std;
 
 namespace fre {
-    bool cmp(pair<string, float>& a, pair<string, float>& b) {
+    bool cmp(pair<string, float> a, pair<string, float> b) {
         return a.second < b.second;
     }
 
-    vector<string> sort(map<string, float>& M) {
+    vector<string> sort(map<string, float> M) {
         vector<pair<string, float> > A;
         for (auto& it : M) {
             A.push_back(it);
