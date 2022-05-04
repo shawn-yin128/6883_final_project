@@ -12,10 +12,10 @@ const string CONFIG = "config_mac.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
 
-int main(int argc, const char * argv[]) {
+int main(void) {
     int selection;
     const string MENU = string("Menu\n")
-    + "====================\n"
+    + "===========================================================================\n"
     + "1 - Enter N to retrieve 2N+1 days of historical price data for all stocks.\n"
     + "2 - Pull information for one stock from one group.\n"
     + "3 - Show AAR, AAR-STD, CAAR and CAAR-STD for one group.\n"
@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
     + "5 - Plot STD CAAR for 3 groups.\n"
     + "6 - Plot Avg AAR for 3 groups.\n"
     + "7 - Plot STD AAR for 3 groups.\n"
-    + "8 - Exit.\n\n";
+    + "8 - Exit.\n";
     
     cout << MENU;
     
@@ -34,12 +34,15 @@ int main(int argc, const char * argv[]) {
 
     bool run = 1;
     while (run) {
-        cout << "Please enter your choice and press return: ";
+        cout << "===========================================================================\nPlease enter your choice and press return: ";
         cin >> selection;
         switch (selection) {
             case 1: {
                 map<string, Stock> stocks;
                 map<string, Stock> validStocks;
+                map<string, vector<string>> annMap;
+                map<string, float> surpriseMap;
+                
                 int N;
                 cout << "Please enter N: ";
                 cin >> N;
@@ -57,8 +60,7 @@ int main(int argc, const char * argv[]) {
                 }
                 
                 // sort and group
-                map<string, vector<string>> annMap = parser.getAnnMap();
-                map<string, float> surpriseMap;
+                annMap = parser.getAnnMap();
                 for (map<string, Stock>::iterator itr = validStocks.begin(); itr != validStocks.end(); itr++) {
                     string symbol = itr->first;
                     string surprise = annMap[symbol][5];
