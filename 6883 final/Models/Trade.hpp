@@ -28,6 +28,9 @@ namespace fre {
             int getVolume() const;
             string getDate() const;
             float getAdjustedClose() const;
+
+            friend	ostream& operator<<(ostream& out, const Trade& trade ); // Overload cout for trade
+
     };
 }
 

@@ -15,7 +15,11 @@ namespace fre {
             string announcementDate;
             vector<Trade> trades;
             vector<Trade> validTrades;
-            vector<Trade> AR;
+            vector<double> AR;
+            vector<Trade>::iterator itr_Day0;
+            
+            void findDay0(const string& annDate);
+            bool _computeUsedData(int N, const string& annDate);
 
         public:
             Stock() : symbol("") {
@@ -35,20 +39,19 @@ namespace fre {
             void addTrade(const Trade& aTrade);
         
             bool computeUsedData(int N);
-            
+            bool computeUsedData(int N, const string& annDate);
+            void computeAR(int N,Stock& benchmark);
+
             // setter
             void setAnnouncementDate(string date);
         
             // getter
             const string getSymbol(void) const;
-<<<<<<< HEAD
+            const string getAnnouncementDate(void) const { return announcementDate; };
             const vector<Trade>& getTrades(void) const;
             const vector<Trade>& getValidTrade(void) const;
-            const vector<Trade>& getAR(void) const;
-=======
-            const vector<Trade> getTrades(void) const;
-            const vector<Trade> getValidTrade(void) const;
->>>>>>> a7da60818e7c719a4ba530cfff941e3a82ef2af5
+            const vector<double>& getAR(void) const;
+            void printValidTrade()const;
     };
 }
 

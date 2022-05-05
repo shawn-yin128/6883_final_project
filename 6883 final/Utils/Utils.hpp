@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -20,7 +21,12 @@ namespace fre {
     vector<string> processSymbolFile(string configFile);
     map<string, vector<string>> processAnnouncementFile(string configFile);
 
-    vector<string> bootstrapping(vector<string> symbols, int size);
+    template<typename VEC>
+    VEC sampling_NoReplace(VEC& group, int k);
+
+    void stringCapitalize(string& str);/* {
+        transform(str.begin(), str.end(), str.begin(), toupper);
+    } */
 }
 
 #endif /* Utils_hpp */

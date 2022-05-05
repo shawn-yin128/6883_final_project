@@ -4,6 +4,9 @@
 #include <time.h>
 #include "Utils/Utils.hpp"
 #include "Utils/Parser.hpp"
+#include "Models/Model.h"
+#include "Models/Stock.hpp"
+#include "Models/Trade.hpp"
 
 using namespace std;
 using namespace fre;
@@ -25,23 +28,26 @@ int main(void) {
     + "7 - Plot STD AAR for 3 groups.\n"
     + "8 - Exit.\n";
     
-    cout << MENU;
     
-    map<string, Stock> beat;
+/*    map<string, Stock> beat;
     map<string, Stock> miss;
-    map<string, Stock> meet;
+    map<string, Stock> meet;  */  
+    vector<string> beat;
+    vector<string> miss;
+    vector<string> meet;
     Stock IWV;
+    map<string, Stock> stocks;
+    map<string, Stock> validStocks;
+    map<string, vector<string>> annMap;
+    map<string, float> surpriseMap;
 
     bool run = 1;
     while (run) {
+        cout << MENU;
         cout << "===========================================================================\nPlease enter your choice and press return: ";
         cin >> selection;
         switch (selection) {
             case 1: {
-                map<string, Stock> stocks;
-                map<string, Stock> validStocks;
-                map<string, vector<string>> annMap;
-                map<string, float> surpriseMap;
                 
                 int N;
                 cout << "Please enter N: ";
@@ -51,11 +57,12 @@ int main(void) {
                 Parser parser(CONFIG);
                 parser.loadSymbol(ANNOUNCEMENT);
                 parser.downloadData();
-                stocks = parser.populateDate();
+                stocks = parser.populateDate();         // change from string to Stock
                 IWV = parser.getIWV();
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         validStocks[itr->second.getSymbol()] = itr->second;
+                        itr->second.computeAR(N, IWV);
                     }
                 }
                 
@@ -70,19 +77,37 @@ int main(void) {
                     surpriseMap[symbol] = stod(surprise);
                 }
                 vector<string> orderedStocks = sort(surpriseMap);
-                for (int i = 0; i < orderedStocks.size(); i++) {
-                    if (i < orderedStocks.size()/3) {
-                        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                    } else if (i >= orderedStocks.size()/3 && i < 2*orderedStocks.size()/3) {
-                        meet[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                    } else {
-                        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                    }
-                }
+                int size_oStk = orderedStocks.size();
+                miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 + 1);
+                meet.assign(orderedStocks.begin() + size_oStk / 3 + 1, orderedStocks.begin() + size_oStk / 3 * 2 + 1);
+                beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 + 1, orderedStocks.end());
+                //for (int i = 0; i < orderedStocks.size(); i++) {
+                //    if (i < orderedStocks.size()/3) {
+                //        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                //    } else if (i >= orderedStocks.size()/3 && i < 2*orderedStocks.size()/3) {
+                //        meet[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                //    } else {
+                //        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
+                //    }
+                //}
                 break;
             }
             case 2: {
-                
+            Peak1Stock:
+
+                string ticker;
+                cout << "Please enter Ticker or press enter to return Menu: ";
+                cin >> ticker;
+                if (ticker.size() == 0) break;
+                stringCapitalize(ticker);           // Ensure user input in uppercase
+                try {
+                    validStocks.at(ticker).printValidTrade();
+                }
+                catch (const out_of_range& oor) {
+                    cout <<ticker << " is not a valid stock. " << endl;
+                    goto Peak1Stock;
+                }
+
                 break;
             }
             case 3: {

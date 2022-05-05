@@ -1,14 +1,20 @@
 #include "Utils.hpp"
+#include "../Models/Stock.hpp"
+#include "../Models/Model.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 namespace fre {
+
     bool cmp(pair<string, float> a, pair<string, float> b) {
         return a.second < b.second;
     }
@@ -106,16 +112,33 @@ namespace fre {
             if (symbol.empty()) {
                 continue;
             }
+            stringCapitalize(symbol);       // Ensure all symbol are in upper case
             annMap[symbol] = factors;
         }
         return annMap;
     }
 
-    vector<string> bootstrapping(vector<string> symbols, int size) {
-        vector<string> selectedSymbols;
-        for (int i = 0; i < size; i++) {
-            selectedSymbols.push_back(symbols[rand() % symbols.size()]);
+    template<typename VEC>
+    VEC sampling_NoReplace(VEC& group, int k) {
+        if (k <= 0) cerr << "sampling_NoReplace: Invalid value k" << endl;
+
+        srand((unsigned)time(NULL));
+        int n = group.size();
+        vector<int> index(n);
+        for (int i = 0; i < n; i++) index[i] = i;
+
+        int pos;
+        VEC stocks;
+        for (int i = 0; i < k; i++) {
+            pos = rand() % (n - i);
+            if (pos != 0)
+                iter_swap(index.begin() + i, index.begin() + i + pos);
+            stocks.push_back(*(group.begin() + index[i]));
         }
-        return selectedSymbols;
+        return stocks;
+    }
+
+    void stringCapitalize(string& str) {
+        transform(str.begin(), str.end(), str.begin(), toupper);
     }
 }
