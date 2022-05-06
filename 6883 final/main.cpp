@@ -13,7 +13,8 @@ using namespace fre;
 
 const string CONFIG = "config_mac.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
-const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 int main(void) {
     int selection;
