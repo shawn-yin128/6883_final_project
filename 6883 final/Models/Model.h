@@ -53,7 +53,7 @@ namespace fre {
 			N(N_), M(M_), K(K_), beat(beat_), miss(miss_), meet(meet_), benchmark(benchmark_), validStocks(validStocks_) {}
 
 		void run_BtStp();
-		ostream& printResult(ostream& out); 
+		ostream& printResult(ostream& out, group_enum gp);
 
 
 	};

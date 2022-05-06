@@ -47,7 +47,7 @@ namespace fre {
         return stocks;
     }
 
-    void stringCapitalize(string& str);
+    string& stringCapitalize(string& str);
 }
 
 #endif /* Utils_hpp */

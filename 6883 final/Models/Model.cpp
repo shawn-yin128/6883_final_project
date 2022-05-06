@@ -150,7 +150,8 @@ namespace fre {
 			result[gp][3] = result[gp][3] ^ 0.5;				// std = sqrt(Hsq- H*H)
 		}
 	}
-	ostream& Bootstrapping::printResult(ostream& out) {
+	ostream& Bootstrapping::printResult(ostream& out, group_enum gp) {
+
 		return out;
 	}
 
