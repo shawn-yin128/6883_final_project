@@ -18,7 +18,7 @@ namespace fre {
             vector<double> AR;
             vector<Trade>::iterator itr_Day0;
             
-            void findDay0(const string& annDate);
+            bool findDay0(const string& annDate);
             bool _computeUsedData(int N, const string& annDate);
 
         public:

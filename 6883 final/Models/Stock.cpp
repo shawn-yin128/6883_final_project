@@ -34,12 +34,14 @@ namespace fre {
         announcementDate = converTime(date);
     }
 
-    void Stock::findDay0(const string& annDate) {
+    bool Stock::findDay0(const string& annDate) {
         for (vector<Trade>::iterator itr = trades.begin(); itr != trades.end(); itr++) {
             if (itr->getDate() == annDate) {
                 itr_Day0 = itr;
+                return true;
             }
         }
+        return false;
     }
 
     bool Stock::computeUsedData(int N) {
@@ -66,15 +68,17 @@ namespace fre {
     }
 
     bool Stock::_computeUsedData(int N, const string& annDate_) {
-        findDay0(annDate_);
-        if (itr_Day0 - trades.begin() < N || trades.end() - itr_Day0 - 1 < N) {
-            return false;
-        }
-        else {
-            for (auto itr2 = itr_Day0 - N; itr2 <= itr_Day0 + N; itr2++) {
-                validTrades.push_back(*itr2);
+        if (findDay0(annDate_)) {
+            if (itr_Day0 - trades.begin() < N || trades.end() - itr_Day0 - 1 < N) {
+                return false;
             }
-            return true;
+            else {
+                validTrades.clear();
+                for (auto itr2 = itr_Day0 - N; itr2 <= itr_Day0 + N; itr2++) {
+                    validTrades.push_back(*itr2);
+                }
+                return true;
+            }
         }
         return false;
     }
@@ -85,7 +89,7 @@ namespace fre {
         if (benchmark.computeUsedData(N, announcementDate)) {
             const vector<Trade> validT_BM = benchmark.getValidTrade();
             if (validTrades.size() != validT_BM.size())
-                cout << "size of benchmark's historical data does not match the size of " << symbol << "'s data" << endl;
+                cerr << "size of benchmark's historical data does not match the size of " << symbol << "'s data" << endl;
 
             for (int i = 1; i != validT_BM.size(); i++) {
                 double R = validTrades[i].getAdjustedClose() - validTrades[i - 1].getAdjustedClose();
