@@ -27,6 +27,7 @@ int main(void) {
     + "6 - Plot Avg AAR for 3 groups.\n"
     + "7 - Plot STD AAR for 3 groups.\n"
     + "8 - Exit.\n";
+    + "9 - Print stock list of specific group with surprise.\n";
     
     
 /*    map<string, Stock> beat;
@@ -129,6 +130,33 @@ int main(void) {
                 cout << "Program shut down, bye." << endl;
                 run = 0;
                 break;
+            }
+            case 9: {
+                int gp;
+                cout << "Please enter group 0-miss, 1-meet, 2-beat: ";
+                cin >> gp;
+                switch (gp) {
+                case miss_0: {
+                    cout << "Total number of stock in Group miss: " << miss.size() << endl;
+                    for (int i = 0; i < miss.size(); i++) {
+                        cout << miss[i] << endl;
+                    }
+                }
+                case meet_1: {
+                    cout << "Total number of stock in Group meet: " << meet.size() << endl;
+                    for (int i = 0; i < meet.size(); i++) {
+                        cout << meet[i] << endl;
+                    }
+                }
+                case beat_2: {
+                    cout << "Total number of stock in Group meet: " << beat.size() << endl;
+                    for (int i = 0; i < beat.size(); i++) {
+                        cout << beat[i] << endl;
+                    }
+                }
+                }
+
+
             }
             default: {
                 cout << "Input invalid selection, please re-enter." << endl;

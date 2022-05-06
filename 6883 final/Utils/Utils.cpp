@@ -119,6 +119,6 @@ namespace fre {
     }
 
     void stringCapitalize(string& str) {
-        transform(str.begin(), str.end(), str.begin(), toupper);
+        transform(str.begin(), str.end(), str.begin(), ::toupper);
     }
 }

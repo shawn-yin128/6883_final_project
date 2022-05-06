@@ -108,17 +108,17 @@ namespace fre {
 			// loop through 3 groups, can change to multithread later
 			switch (i)
 			{
-				case 0: {
+				case group_enum:: miss_0: {
 					group_ptr = &miss;
 					gp = "miss";
 					break;
 				}
-				case 1: {
+				case group_enum:: meet_1: {
 					group_ptr = &meet;
 					gp = "meet";
 					break;
 				}
-				case 2: {
+				case group_enum::beat_2: {
 					group_ptr = &beat;
 					gp = "beat";
 					break;

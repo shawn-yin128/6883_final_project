@@ -14,6 +14,8 @@
 
 using namespace std;
 
+enum group_enum{miss_0, meet_1, beat_2};
+
 namespace fre {
 	typedef vector<double> Vector;
 	typedef vector<Vector> Matrix;
@@ -27,7 +29,6 @@ namespace fre {
 	ostream& operator<<(ostream& out, const Vector& V); // Overload cout for Vector
 	ostream& operator<<(ostream& out, const Matrix& W); // Overload cout for Matrix
 	
-
 
 
 	class Bootstrapping {
