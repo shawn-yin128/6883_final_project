@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2924CB10281B90A700626FC2 /* Stock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2924CB0E281B90A700626FC2 /* Stock.cpp */; };
 		2924CB13281B90B000626FC2 /* Trade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2924CB11281B90B000626FC2 /* Trade.cpp */; };
+		2985CBA72825ADF500F37CC4 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2985CBA52825A82300F37CC4 /* Model.cpp */; };
 		7A8AADBF2814746B003DAF38 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADBE2814746B003DAF38 /* main.cpp */; };
 		7A8AADCD2814764C003DAF38 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADCB2814764C003DAF38 /* Utils.cpp */; };
 		7A8AADD2281479BF003DAF38 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7A8AADD0281479BF003DAF38 /* Parser.cpp */; };
@@ -34,6 +35,8 @@
 		2924CB14281B956A00626FC2 /* Russell3000EarningsAnnouncements.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = Russell3000EarningsAnnouncements.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell3000EarningsAnnouncements.csv"; sourceTree = "<group>"; };
 		2924CB15281B956A00626FC2 /* config_mac.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = config_mac.csv; path = "DerivedData/6883 final/Build/Products/Debug/config_mac.csv"; sourceTree = "<group>"; };
 		2924CB16281B956A00626FC2 /* Russell_3000_component_stocks.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = Russell_3000_component_stocks.csv; path = "DerivedData/6883 final/Build/Products/Debug/Russell_3000_component_stocks.csv"; sourceTree = "<group>"; };
+		2985CBA52825A82300F37CC4 /* Model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
+		2985CBA62825A82300F37CC4 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		29CCC46228222A50002815E3 /* Service.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		7A8AADBB2814746B003DAF38 /* 6883 final */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "6883 final"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8AADBE2814746B003DAF38 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -98,6 +101,8 @@
 		7A8AADCF281478C0003DAF38 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2985CBA52825A82300F37CC4 /* Model.cpp */,
+				2985CBA62825A82300F37CC4 /* Model.h */,
 				2924CB0E281B90A700626FC2 /* Stock.cpp */,
 				2924CB0F281B90A700626FC2 /* Stock.hpp */,
 				2924CB11281B90B000626FC2 /* Trade.cpp */,
@@ -166,6 +171,7 @@
 				7A8AADBF2814746B003DAF38 /* main.cpp in Sources */,
 				7A8AADD2281479BF003DAF38 /* Parser.cpp in Sources */,
 				2924CB10281B90A700626FC2 /* Stock.cpp in Sources */,
+				2985CBA72825ADF500F37CC4 /* Model.cpp in Sources */,
 				7A8AADCD2814764C003DAF38 /* Utils.cpp in Sources */,
 				2924CB13281B90B000626FC2 /* Trade.cpp in Sources */,
 			);

@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>A8CE9FFB-653A-40BD-A83B-D60F0812082E</key>
+		<key>89CF99AE-5809-4309-B5EF-BEDE5A6C3909</key>
 		<dict>
 			<key>className</key>
 			<string>DBGConsoleLog</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
 			<key>fileName</key>
-			<string>A8CE9FFB-653A-40BD-A83B-D60F0812082E.xcactivitylog</string>
+			<string>89CF99AE-5809-4309-B5EF-BEDE5A6C3909.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -32,47 +32,13 @@
 			<key>signature</key>
 			<string>Run 6883 final</string>
 			<key>timeStartedRecording</key>
-			<real>673377274.71803105</real>
+			<real>673557954.95747495</real>
 			<key>timeStoppedRecording</key>
-			<real>673377281.35102499</real>
+			<real>673557971.30623603</real>
 			<key>title</key>
 			<string>Run 6883 final</string>
 			<key>uniqueIdentifier</key>
-			<string>A8CE9FFB-653A-40BD-A83B-D60F0812082E</string>
-		</dict>
-		<key>D24DE0FF-76FE-4103-860C-E7E4EE69EDC5</key>
-		<dict>
-			<key>className</key>
-			<string>DBGConsoleLog</string>
-			<key>documentTypeString</key>
-			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
-			<key>fileName</key>
-			<string>D24DE0FF-76FE-4103-860C-E7E4EE69EDC5.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>6883 final project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>6883 final</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Run 6883 final</string>
-			<key>timeStartedRecording</key>
-			<real>673405510.151582</real>
-			<key>timeStoppedRecording</key>
-			<real>673405537.02025199</real>
-			<key>title</key>
-			<string>Run 6883 final</string>
-			<key>uniqueIdentifier</key>
-			<string>D24DE0FF-76FE-4103-860C-E7E4EE69EDC5</string>
+			<string>89CF99AE-5809-4309-B5EF-BEDE5A6C3909</string>
 		</dict>
 	</dict>
 </dict>
