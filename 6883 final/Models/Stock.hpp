@@ -17,7 +17,8 @@ namespace fre {
             vector<Trade> validTrades;
             vector<double> AR;
             vector<Trade>::iterator itr_Day0;
-            
+            bool valid = false;
+
             bool findDay0(const string& annDate);
             bool _computeUsedData(int N, const string& annDate);
 
@@ -31,8 +32,11 @@ namespace fre {
             Stock(const Stock& stock) {
                 symbol = stock.symbol;
                 announcementDate = stock.announcementDate;
-                trades = stock.trades;
                 validTrades = stock.validTrades;
+                trades = stock.trades;
+                AR = stock.AR;
+                valid = stock.valid;
+                itr_Day0 = stock.itr_Day0;
             }
             ~Stock() {}
         
@@ -52,6 +56,7 @@ namespace fre {
             const vector<Trade>& getValidTrade(void) const;
             const vector<double>& getAR(void) const;
             void printValidTrade()const;
+            void printInfo() const;
     };
 }
 

@@ -9,7 +9,7 @@
 #include <vector>
 #include <time.h>
 #include <cmath>
-
+#include <iomanip>
 
 using namespace std;
 
@@ -60,6 +60,13 @@ namespace fre {
 		}
 		return Vx;
 	}
+	ostream& operator<<(ostream& out, const vector<string>& V) {
+		for (int i = 0; i < V.size(); i++) {
+			out << V[i]<<" | ";
+		}
+		out << endl;
+		return out;
+	}
 	ostream& operator<<(ostream& out, const Vector& V) {
 		for (int i = 0; i < V.size(); i++) {
 			out << V[i];
@@ -68,8 +75,14 @@ namespace fre {
 		return out;
 	}
 	ostream& operator<<(ostream& out, Matrix& W) {
-		for (int i = 0; i < W.size(); i++) {
-			out << W[i];
+		out << fixed << setprecision(6);
+		int second_dim = W[0].size();			// assume all size of the inner vectors are the same
+		for (int j = 0; j < second_dim; j++) {
+			out << setw(WIDTH) << j << "|";		// row#
+			for (int i = 0; i < W.size(); i++) {
+				out << setw(WIDTH) << W[i][j] << "|";	// [mean-AAR,std-AAR,mean-CAAR, std-CAAR] 
+			}
+			out << endl;
 		}
 		return out;
 	}
@@ -78,6 +91,7 @@ namespace fre {
 	Vector& Bootstrapping::calAAR(vector<string>& group, Vector& AAR) {
 		vector<string> stocks;
 		stocks = sampling_NoReplace<vector<string>>(group, M);
+		cout << stocks << endl;
 
 		if (AAR.size() != 2 * N) AAR.resize(2 * N);		// restrict the size to be 2N
 		fill(AAR.begin(), AAR.end(), 0);			
@@ -100,32 +114,28 @@ namespace fre {
 
 	}
 	void Bootstrapping::run_BtStp() {
-		map<string, Matrix> result;		// key:group, value:[mean-AAR,std-AAR,mean-CAAR, std-CAAR] 
 		vector<string>* group_ptr =nullptr ;
-		string gp;
-
 		for (int i = 0; i < 3; i++) {
 			// loop through 3 groups, can change to multithread later
 			switch (i)
 			{
 				case group_enum:: miss_0: {
 					group_ptr = &miss;
-					gp = "miss";
 					break;
 				}
 				case group_enum:: meet_1: {
 					group_ptr = &meet;
-					gp = "meet";
 					break;
 				}
 				case group_enum::beat_2: {
 					group_ptr = &beat;
-					gp = "beat";
 					break;
 				}
 			}
 			Matrix temp(4,Vector (2*N,0));		// [mean - AAR, std - AAR, mean - CAAR, std - CAAR]
+			group_enum gp = group_enum(i);
 			result[gp] = temp;
+			cout << "Calculating " << group_str[gp]<<endl;
 
 			for (int k = 0; k < K; k++) {
 				// loop through 40 bootstraps, can change to multithread later
@@ -150,9 +160,17 @@ namespace fre {
 			result[gp][3] = result[gp][3] ^ 0.5;				// std = sqrt(Hsq- H*H)
 		}
 	}
-	ostream& Bootstrapping::printResult(ostream& out, group_enum gp) {
+	void Bootstrapping::printResult( int gp) {
+		string line(WIDTH*5, '_');
+		cout << "Group " << group_str[group_enum(gp)] << ": " << endl;
+		cout << setw(WIDTH) << "row#" << "|";
+		cout << setw(WIDTH) << "Mean-AAR" << "|";
+		cout << setw(WIDTH) << "STD-AAR" << "|";
+		cout << setw(WIDTH) << "Mean-CAAR" << "|";
+		cout << setw(WIDTH) << "STD-CAAR" <<endl;
+		cout << line << endl;
+		cout<<result[group_enum(gp)];
 
-		return out;
 	}
 
 }

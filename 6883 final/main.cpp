@@ -17,6 +17,7 @@ const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 int main(void) {
+    srand((unsigned)time(NULL));
     int selection;
     const string MENU = string("Menu\n")
     + "===========================================================================\n"
@@ -27,8 +28,9 @@ int main(void) {
     + "5 - Plot STD CAAR for 3 groups.\n"
     + "6 - Plot Avg AAR for 3 groups.\n"
     + "7 - Plot STD AAR for 3 groups.\n"
-    + "8 - Exit.\n";
-    + "9 - Print stock list of specific group with surprise.\n";
+    + "8 - Exit.\n"
+    + "9 - Print stock list of specific group with surprise.\n"
+    + "10 - Model calculation.\n";
     
     
 /*    map<string, Stock> beat;
@@ -42,6 +44,7 @@ int main(void) {
     map<string, Stock> validStocks;
     map<string, vector<string>> annMap;
     map<string, float> surpriseMap;
+    int N,M, K;
 
     bool run = 1;
     while (run) {
@@ -51,7 +54,6 @@ int main(void) {
         switch (selection) {
             case 1: {
                 
-                int N;
                 cout << "Please enter N: ";
                 cin >> N;
                 
@@ -63,8 +65,8 @@ int main(void) {
                 IWV = parser.getIWV();
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
-                        validStocks[itr->second.getSymbol()] = itr->second;
                         itr->second.computeAR(N, IWV);
+                        validStocks[itr->second.getSymbol()] = itr->second;
                     }
                 }
                 
@@ -80,6 +82,10 @@ int main(void) {
                 }
                 vector<string> orderedStocks = sort(surpriseMap);
                 int size_oStk = orderedStocks.size();
+                cout << "Total number of stocks: " << size_oStk << endl;
+                miss.clear();
+                meet.clear();
+                beat.clear();
                 miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 + 1);
                 meet.assign(orderedStocks.begin() + size_oStk / 3 + 1, orderedStocks.begin() + size_oStk / 3 * 2 + 1);
                 beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 + 1, orderedStocks.end());
@@ -92,17 +98,19 @@ int main(void) {
                 //        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
                 //    }
                 //}
+
                 break;
             }
             case 2: {
             Peak1Stock:
 
                 string ticker;
-                cout << "Please enter Ticker or press enter to return Menu: ";
+                cout << "Please enter Ticker or enter 0 to return Menu: ";
                 cin >> ticker;
-                if (ticker.size() == 0) break;
+                if (ticker == "0") break;
                 stringCapitalize(ticker);           // Ensure user input in uppercase
                 try {
+                    validStocks.at(ticker).printInfo();
                     validStocks.at(ticker).printValidTrade();
                 }
                 catch (const out_of_range& oor) {
@@ -134,30 +142,54 @@ int main(void) {
             }
             case 9: {
                 int gp;
-                cout << "Please enter group 0-miss, 1-meet, 2-beat: ";
+                cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
                 cin >> gp;
-                switch (gp) {
+                if (gp == 0) break;
+                switch (gp-1) {
                 case miss_0: {
                     cout << "Total number of stock in Group miss: " << miss.size() << endl;
                     for (int i = 0; i < miss.size(); i++) {
                         cout << miss[i] << endl;
                     }
+                    break;
                 }
                 case meet_1: {
                     cout << "Total number of stock in Group meet: " << meet.size() << endl;
                     for (int i = 0; i < meet.size(); i++) {
                         cout << meet[i] << endl;
                     }
+                    break;
                 }
                 case beat_2: {
                     cout << "Total number of stock in Group meet: " << beat.size() << endl;
                     for (int i = 0; i < beat.size(); i++) {
                         cout << beat[i] << endl;
                     }
+                    break;
                 }
                 }
+                break;
+            }
+            case 10: {
+                // Model calculation
+                cout << "Please enter M - number of stocks picked in each group or enter 0 to return Menu: ";
+                cin >> M;
+                if (M == 0) break;
 
+                cout << "Please enter K - number of times of bootstrapping or enter 0 to return Menu: ";
+                cin >> K;
+                if (K == 0) break;
 
+                Bootstrapping model(N, M, K, beat, miss, meet, IWV, validStocks);
+                model.run_BtStp();
+
+            VisuliseResult:
+                cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
+                int gp;
+                cin >> gp;
+                if (gp == 0) break;
+                model.printResult(gp-1);
+                goto VisuliseResult;
             }
             default: {
                 cout << "Input invalid selection, please re-enter." << endl;

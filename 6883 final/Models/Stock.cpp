@@ -3,7 +3,7 @@
 #include <vector>
 #include "Trade.hpp"
 #include "../Utils/Utils.hpp"
-#include <iomanip>                                                                              
+#include <iomanip>
 #include <iostream> 
 
 using namespace std;
@@ -68,6 +68,7 @@ namespace fre {
     }
 
     bool Stock::_computeUsedData(int N, const string& annDate_) {
+        valid = false;
         if (findDay0(annDate_)) {
             if (itr_Day0 - trades.begin() < N || trades.end() - itr_Day0 - 1 < N) {
                 return false;
@@ -77,6 +78,7 @@ namespace fre {
                 for (auto itr2 = itr_Day0 - N; itr2 <= itr_Day0 + N; itr2++) {
                     validTrades.push_back(*itr2);
                 }
+                valid = true;
                 return true;
             }
         }
@@ -91,20 +93,23 @@ namespace fre {
             if (validTrades.size() != validT_BM.size())
                 cerr << "size of benchmark's historical data does not match the size of " << symbol << "'s data" << endl;
 
-            for (int i = 1; i != validT_BM.size(); i++) {
-                double R = validTrades[i].getAdjustedClose() - validTrades[i - 1].getAdjustedClose();
-                double R_BM = validT_BM[i].getAdjustedClose() - validT_BM[i - 1].getAdjustedClose();
+            AR.clear();
+            for (int i = 1; i < validT_BM.size(); i++) {
+                if (validTrades[i].getAdjustedClose() <= 0) { cout << symbol << endl; }
+                double R = validTrades[i].getAdjustedClose() / validTrades[i - 1].getAdjustedClose() -1;
+                double R_BM = validT_BM[i].getAdjustedClose() / validT_BM[i - 1].getAdjustedClose() -1;
                 AR.push_back(R - R_BM);
 ;            }
         }
         else {
             // error msg
-            cout << "size of benchmark's historical data is not enough" << endl;
+            cerr << "size of benchmark's historical data is not enough" << endl;
         }
 
     }
 
     void Stock::printValidTrade()const {
+        string line(13 + 10 * 5 + 15, '_');
         cout << setw(13) << "Date" << "|";
         cout << setw(10) << "Open" << "|";
         cout << setw(10) << "Hige" << "|";
@@ -112,9 +117,18 @@ namespace fre {
         cout << setw(10) << "Close" << "|";
         cout << setw(10) << "Adj. Close" << "|";
         cout << setw(15) << "Volume" << endl;
+        cout << line << endl;
         for (int i = 0; i < validTrades.size(); i++) {
             cout << validTrades[i];
         }
+    }
+
+    void Stock::printInfo() const {
+        cout << setw(20) << "Stock Info: " << endl;
+        cout << setw(20) << "Symbol: " << symbol << endl;
+        cout << setw(20) << "Announcement Date: " << announcementDate << endl;
+        cout << setw(20) << "With valid data: " << valid << endl;
+
     }
 
 }

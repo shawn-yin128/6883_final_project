@@ -12,6 +12,9 @@
 using namespace std;
 
 namespace fre {
+#define WIDTH 12
+    enum group_enum { miss_0, meet_1, beat_2 };
+
     bool cmp(pair<string, float> a, pair<string, float> b);
     vector<string> sort(map<string, float> M);
 
@@ -30,7 +33,6 @@ namespace fre {
         if (k <= 0)
             cerr << "sampling_NoReplace: Invalid value k" << endl;
 
-        srand((unsigned)time(NULL));
         int n = group.size();
         vector<int> ind(n);
         for (int i = 0; i < n; i++)

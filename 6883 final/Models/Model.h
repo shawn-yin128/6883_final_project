@@ -14,8 +14,6 @@
 
 using namespace std;
 
-enum group_enum{miss_0, meet_1, beat_2};
-
 namespace fre {
 	typedef vector<double> Vector;
 	typedef vector<Vector> Matrix;
@@ -27,12 +25,15 @@ namespace fre {
 	Vector& operator*=(Vector& V, const double c);
 	Vector operator^(const Vector& V, const double x);
 	ostream& operator<<(ostream& out, const Vector& V); // Overload cout for Vector
+	ostream& operator<<(ostream& out, const vector<string>& V); // Overload cout for Vector
 	ostream& operator<<(ostream& out, const Matrix& W); // Overload cout for Matrix
 	
 
 
 	class Bootstrapping {
 	private:
+		map<group_enum, string> group_str{ {miss_0,"miss"}, {meet_1,"meet"}, {beat_2,"beat"} };
+
 		int N;					// number of observation days before/after Day0
 		int M;					// number of stocks picked in each group
 		int K;					// number of times of bootstrapping
@@ -41,6 +42,7 @@ namespace fre {
 		vector<string> meet;
 		Stock benchmark;
 		map<string, Stock> validStocks;
+		map<group_enum, Matrix> result;		// key:group, value:[mean-AAR,std-AAR,mean-CAAR, std-CAAR] 
 
 		Vector& calAAR(vector<string>& group, Vector& AAR);
 		Vector& calCAAR(Vector& AAR, Vector& CAAR);
@@ -53,7 +55,7 @@ namespace fre {
 			N(N_), M(M_), K(K_), beat(beat_), miss(miss_), meet(meet_), benchmark(benchmark_), validStocks(validStocks_) {}
 
 		void run_BtStp();
-		ostream& printResult(ostream& out, group_enum gp);
+		void printResult(int gp);
 
 
 	};
