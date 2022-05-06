@@ -8,8 +8,7 @@
 #include <vector>
 #include <map>
 #include <algorithm>
-#include <cstdlib>
-#include <ctime>
+
 
 using namespace std;
 
@@ -81,6 +80,7 @@ namespace fre {
             stringstream sin(line);
             getline(sin, symbol, ',');
             getline(sin, description);
+            stringCapitalize(symbol);       // Ensure all symbol are in upper case
             symbolVector.push_back(symbol);
         }
         return symbolVector;
@@ -116,26 +116,6 @@ namespace fre {
             annMap[symbol] = factors;
         }
         return annMap;
-    }
-
-    template<typename VEC>
-    VEC sampling_NoReplace(VEC& group, int k) {
-        if (k <= 0) cerr << "sampling_NoReplace: Invalid value k" << endl;
-
-        srand((unsigned)time(NULL));
-        int n = group.size();
-        vector<int> index(n);
-        for (int i = 0; i < n; i++) index[i] = i;
-
-        int pos;
-        VEC stocks;
-        for (int i = 0; i < k; i++) {
-            pos = rand() % (n - i);
-            if (pos != 0)
-                iter_swap(index.begin() + i, index.begin() + i + pos);
-            stocks.push_back(*(group.begin() + index[i]));
-        }
-        return stocks;
     }
 
     void stringCapitalize(string& str) {

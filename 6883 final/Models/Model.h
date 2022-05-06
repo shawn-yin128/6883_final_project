@@ -18,14 +18,18 @@ namespace fre {
 	typedef vector<double> Vector;
 	typedef vector<Vector> Matrix;
 	Vector& operator+=(Vector& V, const Vector& U);
+	Vector& operator-=(Vector& V, const Vector& U);
 	Vector& operator/=(Vector& V, const int c);
 	Vector& operator/=(Vector& V, const double c);
 	Vector& operator*=(Vector& V, const int c);
 	Vector& operator*=(Vector& V, const double c);
-	//Vector& operator^(const Vector& V);
+	Vector operator^(const Vector& V, const double x);
 	ostream& operator<<(ostream& out, const Vector& V); // Overload cout for Vector
 	ostream& operator<<(ostream& out, const Matrix& W); // Overload cout for Matrix
 	
+
+
+
 	class Bootstrapping {
 	private:
 		int N;					// number of observation days before/after Day0
@@ -37,6 +41,9 @@ namespace fre {
 		Stock benchmark;
 		map<string, Stock> validStocks;
 
+		Vector& calAAR(vector<string>& group, Vector& AAR);
+		Vector& calCAAR(Vector& AAR, Vector& CAAR);
+
 	public:
 		Bootstrapping() :N(60),M(80), K(40) {}
 		Bootstrapping(int N_, int M_, int K_,
@@ -44,9 +51,9 @@ namespace fre {
 			Stock& benchmark_, map<string, Stock>& validStocks_) :
 			N(N_), M(M_), K(K_), beat(beat_), miss(miss_), meet(meet_), benchmark(benchmark_), validStocks(validStocks_) {}
 
-		//void run_BtStp();
-		Vector& calAAR(vector<string>& group);
-		Vector& calCAAR(Vector& AAR);
+		void run_BtStp();
+		ostream& printResult(ostream& out); 
+
 
 	};
 }
