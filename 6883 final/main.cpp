@@ -29,8 +29,7 @@ int main(void) {
     + "6 - Plot Avg AAR for 3 groups.\n"
     + "7 - Plot STD AAR for 3 groups.\n"
     + "8 - Exit.\n"
-    + "9 - Print stock list of specific group with surprise.\n"
-    + "10 - Model calculation.\n";
+    + "9 - Print stock list of specific group with surprise.\n";
     
     
 /*    map<string, Stock> beat;
@@ -86,8 +85,8 @@ int main(void) {
                 miss.clear();
                 meet.clear();
                 beat.clear();
-                miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 + 1);
-                meet.assign(orderedStocks.begin() + size_oStk / 3 + 1, orderedStocks.begin() + size_oStk / 3 * 2 + 1);
+                miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 );
+                meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 + 1);
                 beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 + 1, orderedStocks.end());
                 //for (int i = 0; i < orderedStocks.size(); i++) {
                 //    if (i < orderedStocks.size()/3) {
@@ -110,8 +109,13 @@ int main(void) {
                 if (ticker == "0") break;
                 stringCapitalize(ticker);           // Ensure user input in uppercase
                 try {
-                    validStocks.at(ticker).printInfo();
-                    validStocks.at(ticker).printValidTrade();
+                    if (ticker == "IWV") {
+                        IWV.printValidTrades();
+                    }
+                    else {
+                        validStocks.at(ticker).printInfo();
+                        validStocks.at(ticker).printValidTrades();
+                    }
                 }
                 catch (const out_of_range& oor) {
                     cout <<ticker << " is not a valid stock. " << endl;
@@ -121,6 +125,25 @@ int main(void) {
                 break;
             }
             case 3: {
+                // Model calculation
+                cout << "Please enter M - number of stocks picked in each group or enter 0 to return Menu: ";
+                cin >> M;
+                if (M == 0) break;
+
+                cout << "Please enter K - number of times of bootstrapping or enter 0 to return Menu: ";
+                cin >> K;
+                if (K == 0) break;
+
+                Bootstrapping model(N, M, K, beat, miss, meet, IWV, validStocks);
+                model.run_BtStp();
+
+            VisuliseResult:
+                cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
+                int gp;
+                cin >> gp;
+                if (gp == 0) break;
+                model.printResult(gp - 1);
+                goto VisuliseResult;
                 break;
             }
             case 4: {
@@ -141,6 +164,7 @@ int main(void) {
                 break;
             }
             case 9: {
+            PrintStockList:
                 int gp;
                 cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
                 cin >> gp;
@@ -168,28 +192,8 @@ int main(void) {
                     break;
                 }
                 }
+                goto PrintStockList;
                 break;
-            }
-            case 10: {
-                // Model calculation
-                cout << "Please enter M - number of stocks picked in each group or enter 0 to return Menu: ";
-                cin >> M;
-                if (M == 0) break;
-
-                cout << "Please enter K - number of times of bootstrapping or enter 0 to return Menu: ";
-                cin >> K;
-                if (K == 0) break;
-
-                Bootstrapping model(N, M, K, beat, miss, meet, IWV, validStocks);
-                model.run_BtStp();
-
-            VisuliseResult:
-                cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
-                int gp;
-                cin >> gp;
-                if (gp == 0) break;
-                model.printResult(gp-1);
-                goto VisuliseResult;
             }
             default: {
                 cout << "Input invalid selection, please re-enter." << endl;

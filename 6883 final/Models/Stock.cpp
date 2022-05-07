@@ -108,7 +108,7 @@ namespace fre {
 
     }
 
-    void Stock::printValidTrade()const {
+    void Stock::printValidTrades()const {
         string line(13 + 10 * 5 + 15, '_');
         cout << setw(13) << "Date" << "|";
         cout << setw(10) << "Open" << "|";
@@ -120,6 +120,20 @@ namespace fre {
         cout << line << endl;
         for (int i = 0; i < validTrades.size(); i++) {
             cout << validTrades[i];
+        }
+    }
+    void Stock::printTrades()const {
+        string line(13 + 10 * 5 + 15, '_');
+        cout << setw(13) << "Date" << "|";
+        cout << setw(10) << "Open" << "|";
+        cout << setw(10) << "Hige" << "|";
+        cout << setw(10) << "Low" << "|";
+        cout << setw(10) << "Close" << "|";
+        cout << setw(10) << "Adj. Close" << "|";
+        cout << setw(15) << "Volume" << endl;
+        cout << line << endl;
+        for (int i = 0; i < trades.size(); i++) {
+            cout << trades[i];
         }
     }
 

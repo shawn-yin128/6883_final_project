@@ -55,7 +55,8 @@ namespace fre {
             const vector<Trade>& getTrades(void) const;
             const vector<Trade>& getValidTrade(void) const;
             const vector<double>& getAR(void) const;
-            void printValidTrade()const;
+            void printValidTrades()const;
+            void printTrades()const;
             void printInfo() const;
     };
 }
