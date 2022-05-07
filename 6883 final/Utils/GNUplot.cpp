@@ -1,4 +1,13 @@
 #include "GNUplot.h"
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
+#include <iostream>
+#include <chrono>
+#include <thread>
+
 
 using namespace std;
 namespace fre {
@@ -14,8 +23,13 @@ namespace fre {
     void GNU::_plotResults(const Vector& xData, map<string, Vector>& yData) {
         double x, y;
         FILE* gnuplotPipe, * tempDataFile;
-        gnuplotPipe = popen(EXE_PATH_MAC.c_str(),"w"); // for MAC
-        // gnuplotPipe = _popen(EXE_PATH_PC.c_str(), "w");
+
+        #ifdef _WIN32						// Checking for windows OS with _WIN32 macro
+            gnuplotPipe = _popen(EXE_PATH_PC.c_str(), "w");
+        #elif __APPLE__						// Checking for mac OS with __APPLE__ macro
+            gnuplotPipe = popen(EXE_PATH_MAC.c_str(), "w"); // for MAC
+        #endif
+
 
         if (gnuplotPipe) {
             string command = "plot ";
@@ -35,8 +49,11 @@ namespace fre {
                 fclose(tempDataFile);
             }
 
-            printf("press enter to continue...");
-            getchar();
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));    // sleep for 2 second to wait for GNU plot engine
+
+            //printf("press enter to continue...");
+            //getchar();
+
             for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
                 remove((itr->first).c_str());
             }
@@ -58,6 +75,7 @@ namespace fre {
             yData[yData_name[i]] = yData_val[i];
         }
         _plotResults(xData, yData);
+        //plotResults_test(xData, yData_val, yData_name);
     }
 
 	void GNU::plotResults(Vector& xData, Vector& y1Data, Vector& y2Data, Vector& y3Data,
@@ -80,6 +98,73 @@ namespace fre {
 
     }
 
+    void GNU::plotResults_test(const Vector& xData, const Matrix& yData_val, const vector<string>& yData_name) {
+        FILE* gnuplotPipe, * tempDataFile;
+        const char* tempDataFileName1 = yData_name[0].c_str();
+        const char* tempDataFileName2 = yData_name[1].c_str();
+        const char* tempDataFileName3 = yData_name[2].c_str();
+        const char* tempDataFileName4 = yData_name[3].c_str();
+        double x, y, x2, y2;
+        int i;
+        // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       for MAC
+        gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
+        if (gnuplotPipe) {
+            fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines, \"%s\" with lines, \"%s\" with lines\n",
+                tempDataFileName1, tempDataFileName2, tempDataFileName3, tempDataFileName4);
+            fflush(gnuplotPipe);
+
+            tempDataFile = fopen(tempDataFileName1, "w");
+            for (i = 0; i < xData.size(); i++) {
+                x = xData[i];
+                y = yData_val[0][i];
+                fprintf(tempDataFile, "%lf %lf\n", x, y);
+            }
+            fclose(tempDataFile);
+
+            tempDataFile = fopen(tempDataFileName2, "w");
+            for (i = 0; i < xData.size(); i++) {
+                x = xData[i];
+                y = yData_val[1][i];
+                fprintf(tempDataFile, "%lf %lf\n", x, y);
+            }
+            fclose(tempDataFile);
+
+            tempDataFile = fopen(tempDataFileName3, "w");
+            for (i = 0; i < xData.size(); i++) {
+                x = xData[i];
+                y = yData_val[2][i];
+                fprintf(tempDataFile, "%lf %lf\n", x, y);
+            }
+            fclose(tempDataFile);
+
+            tempDataFile = fopen(tempDataFileName4, "w");
+            for (i = 0; i < xData.size(); i++) {
+                x = xData[i];
+                y = yData_val[3][i];
+                fprintf(tempDataFile, "%lf %lf\n", x, y);
+            }
+            fclose(tempDataFile);
+
+
+
+            cin.clear();
+            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            std::this_thread::sleep_for(std::chrono::milliseconds(2000));    // sleep for 1 second
+
+            printf("press enter to continue...");
+            getchar();
+
+            remove(tempDataFileName1);
+            remove(tempDataFileName2);
+            remove(tempDataFileName3);
+            remove(tempDataFileName4);
+
+
+            fprintf(gnuplotPipe, "exit \n");
+        }
+        else {
+            printf("gnuplot not found...");
+        }
+    }
 
 }
-
