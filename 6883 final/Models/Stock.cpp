@@ -145,10 +145,16 @@ namespace fre {
     }
 
     void Stock::printInfo() const {
+        cout << setprecision(2);
         cout << "Stock Info " << endl;
         cout << setw(20) << "Symbol: " << symbol << endl;
         if (symbol != "IWV") {
             cout << setw(20) << "Announcement Date: " << announcementDate << endl;
+            cout << setw(20) << "Estimated Earnings: " << estimatedEarnings << endl;
+            cout << setw(20) << "Reported Earnings: " << reportedEarnings << endl;
+            cout << setw(20) << "Suprise: " << suprise << endl;
+            cout << setw(20) << "Suprise (%): " << suprise_pct << endl;
+            cout << setw(20) << "Group: " << group << endl;
             cout << setw(20) << "With valid data: " << valid << endl;
         }
 

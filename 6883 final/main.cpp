@@ -9,6 +9,8 @@
 #include "Models/Model.h"
 #include "Models/Stock.hpp"
 #include "Models/Trade.hpp"
+#include <chrono>
+#include <thread>
 
 using namespace std;
 using namespace fre;
@@ -191,7 +193,7 @@ int main(void) {
                 model.printResult(gp);
 
                 // Plot AAR, AAR-STD, CAAR and CAAR-STD for one group.
-                map<string, Vector> MeanCAAR = model.getMeanCAAR();
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));    // sleep for 1 second
                 gnuplot.plotResults(gnuplot.get_xData(), model.getMetrics(gp), model.getMetricsName());
 
                 goto VisuliseResult;
