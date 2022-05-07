@@ -7,14 +7,14 @@ using namespace std;
 namespace fre {
 	class GNU {
 	private:
-		//const string EXE_PATH_PC = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
-		//const string EXE_PATH_MAC = "/opt/local/bin/gnuplot";
+		const string EXE_PATH_PC = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
+		const string EXE_PATH_MAC = "/opt/local/bin/gnuplot";
 
-		#ifdef _WIN32						// Checking for windows OS with _WIN32 macro
-			const string EXE_PATH = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
-		#elif __APPLE__						// Checking for mac OS with __APPLE__ macro
-			const string EXE_PATH= "/opt/local/bin/gnuplot";
-		#endif
+#ifdef _WIN32						// Checking for windows OS with _WIN32 macro
+		bool isWindow = True;
+#elif __APPLE__						// Checking for mac OS with __APPLE__ macro
+		bool isWindow = False;
+#endif
 		
 		Vector xData;
 

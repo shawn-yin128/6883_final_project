@@ -24,8 +24,12 @@ namespace fre {
         double x, y;
         FILE* gnuplotPipe, * tempDataFile;
 
-        gnuplotPipe = popen(EXE_PATH_MAC.c_str(),"w"); // for MAC
-        // gnuplotPipe = _popen(EXE_PATH_PC.c_str(), "w");
+        #ifdef _WIN32						// Checking for windows OS with _WIN32 macro
+            gnuplotPipe = _popen(EXE_PATH_PC.c_str(), "w");
+        #elif __APPLE__						// Checking for mac OS with __APPLE__ macro
+            gnuplotPipe = popen(EXE_PATH_MAC.c_str(), "w"); // for MAC
+        #endif
+
 
         if (gnuplotPipe) {
             string command = "plot ";
