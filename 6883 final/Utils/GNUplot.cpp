@@ -27,7 +27,7 @@ namespace fre {
             fflush(gnuplotPipe);
             for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
                 tempDataFile = fopen((itr->first).c_str(), "w");
-                for (int i = 0; i <= xData.size(); i++) {
+                for (int i = 0; i < xData.size(); i++) {
                     x = xData[i];
                     y = itr->second[i];
                     fprintf(tempDataFile, "%lf %lf\n", x, y);

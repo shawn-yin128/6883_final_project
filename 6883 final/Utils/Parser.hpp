@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include "../Models/Stock.hpp"
+#include "Utils.hpp"
 
 using namespace std;
 
