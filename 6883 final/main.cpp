@@ -181,7 +181,7 @@ int main(void) {
                 cin >> K;
                 if (K == 0) break;
 
-                Bootstrapping model(N, M, K, beat, miss, meet, IWV, validStocks);
+                model = Bootstrapping(N, M, K, beat, miss, meet, IWV, validStocks);
                 model.run_BtStp();
 
             VisuliseResult:
