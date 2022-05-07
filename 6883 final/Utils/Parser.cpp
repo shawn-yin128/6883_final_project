@@ -36,9 +36,11 @@ namespace fre {
 
     int Parser::loadSymbol(string configFile) {
         annMap = processAnnouncementFile(configFile);
-        for (map<string, vector<string>>::iterator itr = annMap.begin(); itr != annMap.end(); itr++) {
-            symbolVector.push_back(itr->first);
-        }
+        //for (map<string, vector<string>>::iterator itr = annMap.begin(); itr != annMap.end(); itr++) {
+        //    symbolVector.push_back(itr->first);
+        //}
+        symbolVector.clear();
+        get_MapKeys<string, vector<string>>(annMap, symbolVector);
         symbolVector.push_back("IWV");
         return 0;
     }

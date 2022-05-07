@@ -52,6 +52,14 @@ namespace fre {
     string& stringCapitalize(string& str);
 
     vector<string> slicing(vector<string>& arr, int X, int Y);
+
+    template<class key, class val>
+    vector<key>& get_MapKeys(const map<key, val>& mp, vector<key>& mapKeys) {
+        for (auto const& imap : mp)
+            mapKeys.push_back(imap.first);
+        return mapKeys;
+    }
+    
 }
 
 #endif /* Utils_hpp */

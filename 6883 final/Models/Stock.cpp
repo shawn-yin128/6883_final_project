@@ -87,6 +87,7 @@ namespace fre {
 
     void Stock::computeAR(int N, Stock& benchmark) {
         // assume Benchmark has all the date in stk.validTrades
+        // compute cumulative daily return at the same time
 
         if (benchmark.computeUsedData(N, announcementDate)) {
             const vector<Trade> validT_BM = benchmark.getValidTrade();
@@ -94,8 +95,13 @@ namespace fre {
                 cerr << "size of benchmark's historical data does not match the size of " << symbol << "'s data" << endl;
 
             AR.clear();
+            double init_close = validTrades[0].getAdjustedClose();
+            validTrades[0].setcumDailyRet(0.0);
             for (int i = 1; i < validT_BM.size(); i++) {
                 if (validTrades[i].getAdjustedClose() <= 0) { cout << symbol << endl; }
+                // cumulative daily return
+                validTrades[i].setcumDailyRet(validTrades[i].getAdjustedClose() / init_close - 1);
+
                 double R = validTrades[i].getAdjustedClose() / validTrades[i - 1].getAdjustedClose() -1;
                 double R_BM = validT_BM[i].getAdjustedClose() / validT_BM[i - 1].getAdjustedClose() -1;
                 AR.push_back(R - R_BM);
@@ -109,13 +115,14 @@ namespace fre {
     }
 
     void Stock::printValidTrades()const {
-        string line(13 + 10 * 5 + 15, '_');
+        string line(13 + 10 * 5 + 15+17, '_');
         cout << setw(13) << "Date" << "|";
         cout << setw(10) << "Open" << "|";
         cout << setw(10) << "Hige" << "|";
         cout << setw(10) << "Low" << "|";
         cout << setw(10) << "Close" << "|";
         cout << setw(10) << "Adj. Close" << "|";
+        cout << setw(15) << "Cum. Daily Ret" << "|";
         cout << setw(15) << "Volume" << endl;
         cout << line << endl;
         for (int i = 0; i < validTrades.size(); i++) {

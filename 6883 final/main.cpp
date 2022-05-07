@@ -14,16 +14,17 @@ using namespace std;
 using namespace fre;
 
 const string CONFIG = "config_mac.csv";
-const string SYMBOL = "Russell_3000_component_stocks.csv";
-const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
-//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
+const string SYMBOL = "Russell_3000_component_stocks_test.csv";
+//const string SYMBOL = "Russell_3000_component_stocks.csv";
+//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 bool dowanloadFlag = 0;
-void download(map<string, Stock> stocks) {
+void download(map<string, Stock>* stocks) {
     ConcurrentDownloader concurrentDownloader;
     vector<string> symbols = processSymbolFile(SYMBOL);
     concurrentDownloader.parse(CONFIG, symbols);
-    stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
+    *stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
     dowanloadFlag = 1;
 }
 
@@ -59,7 +60,7 @@ int main(void) {
     Bootstrapping model;
     GNU gnuplot;
 
-    thread downloadThread(download, stocks);
+    thread downloadThread(download, &stocks);
     
     bool run = 1;
     while (run) {
@@ -100,6 +101,12 @@ int main(void) {
                         surprise.erase(surprise.size() - 1);
                     }
                     surpriseMap[symbol] = stod(surprise);
+
+                    // add earnings info into Stock
+                    itr->second.setEstimatedEarnings(stof(annMap[symbol][2]));
+                    itr->second.setReportedEarnings(stof(annMap[symbol][3]));
+                    itr->second.setSuprise(stof(annMap[symbol][4]));
+                    itr->second.setSuprise_pct(stof(annMap[symbol][5]));
                 }
                 vector<string> orderedStocks = sort(surpriseMap);
                 int size_oStk = orderedStocks.size();
@@ -107,9 +114,22 @@ int main(void) {
                 miss.clear();
                 meet.clear();
                 beat.clear();
-                miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 );
-                meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 );
-                beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 , orderedStocks.end());
+                for (int i = 0; i < orderedStocks.size(); i++) {
+                    if (i < orderedStocks.size()/3) {
+                        miss.push_back(orderedStocks[i]);
+                        validStocks[orderedStocks[i]].setGroup("miss");
+                    } else if (i >= orderedStocks.size()/3 && i < 2*orderedStocks.size()/3) {
+                        meet.push_back(orderedStocks[i]);
+                        validStocks[orderedStocks[i]].setGroup("meet");
+                    } else {
+                        beat.push_back(orderedStocks[i]);
+                        validStocks[orderedStocks[i]].setGroup("beat");
+                    }
+                }
+                //miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 );
+                //meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 );
+                //beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 , orderedStocks.end());
+
                 //for (int i = 0; i < orderedStocks.size(); i++) {
                 //    if (i < orderedStocks.size()/3) {
                 //        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];

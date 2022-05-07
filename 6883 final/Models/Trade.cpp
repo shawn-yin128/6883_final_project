@@ -19,6 +19,9 @@ namespace fre {
         out << setw(10) << trade.low << "|";
         out << setw(10) << trade.close << "|";
         out << setw(10) << trade.adjClose << "|";
+        if (trade.cumDailyRet != 99.99) {
+            out << setw(15) << trade.cumDailyRet << "|";
+        }
         out << setw(15) << trade.volume << endl;
         return out;
     }
