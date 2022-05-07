@@ -110,7 +110,7 @@ int main(void) {
                 stringCapitalize(ticker);           // Ensure user input in uppercase
                 try {
                     if (ticker == "IWV") {
-                        IWV.printValidTrades();
+                        IWV.printTrades();
                     }
                     else {
                         validStocks.at(ticker).printInfo();

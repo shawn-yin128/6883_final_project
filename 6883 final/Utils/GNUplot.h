@@ -10,7 +10,8 @@
 //		const string EXE_PATH_PC = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
 //		const string EXE_PATH_MAC = "/opt/local/bin/gnuplot";
 //
-//		void _plotResults(const Vector& xData, const map<string, Vector>& yData) {
+//		void _plotResults(const Vector& xData, map<string, Vector>& yData) {
+//            double x, y;
 //            FILE* gnuplotPipe, * tempDataFile;
 //            // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       for MAC
 //            gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
@@ -23,30 +24,27 @@
 //            if (gnuplotPipe) {
 //                string command = "plot ";
 //                for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
-//                    command += itr->first
-//
+//                    command += "\"" + itr->first + "\" with lines,";
 //                }
-//
-//                fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines\n", tempDataFileName1, tempDataFileName2);
+//                command += "\n";
+//                fprintf(gnuplotPipe, command.c_str());
 //                fflush(gnuplotPipe);
-//                tempDataFile = fopen(tempDataFileName1, "w");
-//                for (i = 0; i <= dataSize; i++) {
-//                    x = xData[i];
-//                    y = yData[i];
-//                    fprintf(tempDataFile, "%lf %lf\n", x, y);
+//                for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
+//                    tempDataFile = fopen((itr->first).c_str(), "w");
+//                    for (int i = 0; i <= xData.size(); i++) {
+//                        x = xData[i];
+//                        y = itr->second[i];
+//                        fprintf(tempDataFile, "%lf %lf\n", x, y);
+//                    }
+//                    fclose(tempDataFile);
 //                }
-//                fclose(tempDataFile);
-//                tempDataFile = fopen(tempDataFileName2, "w");
-//                for (i = 0; i <= dataSize; i++) {
-//                    x2 = xData[i];
-//                    y2 = yData2[i];
-//                    fprintf(tempDataFile, "%lf %lf\n", x2, y2);
-//                }
-//                fclose(tempDataFile);
+//
 //                printf("press enter to continue...");
 //                getchar();
-//                remove(tempDataFileName1);
-//                remove(tempDataFileName2);
+//                for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
+//
+//                    remove();
+//                }
 //
 //                cout << 'test' << endl;
 //                tempDataFile = fopen(tempDataFileName1, "w");

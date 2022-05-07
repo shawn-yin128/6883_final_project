@@ -138,10 +138,12 @@ namespace fre {
     }
 
     void Stock::printInfo() const {
-        cout << setw(20) << "Stock Info: " << endl;
+        cout << "Stock Info " << endl;
         cout << setw(20) << "Symbol: " << symbol << endl;
-        cout << setw(20) << "Announcement Date: " << announcementDate << endl;
-        cout << setw(20) << "With valid data: " << valid << endl;
+        if (symbol != "IWV") {
+            cout << setw(20) << "Announcement Date: " << announcementDate << endl;
+            cout << setw(20) << "With valid data: " << valid << endl;
+        }
 
     }
 
