@@ -114,6 +114,7 @@ namespace fre {
 
 	}
 	void Bootstrapping::run_BtStp() {
+		result.clear();
 		vector<string>* group_ptr =nullptr ;
 		for (int i = 0; i < 3; i++) {
 			// loop through 3 groups, can change to multithread later

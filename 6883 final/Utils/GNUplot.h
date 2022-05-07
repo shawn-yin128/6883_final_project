@@ -21,8 +21,11 @@
 //            //double x, y, x2, y2;
 //            //int i;
 //            if (gnuplotPipe) {
-//                string commant = "plot ";
-//                for (map<string, Vector>::iterator)
+//                string command = "plot ";
+//                for (map<string, Vector>::iterator itr = yData.begin(); itr != yData.end(); itr++) {
+//                    command += itr->first
+//
+//                }
 //
 //                fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines\n", tempDataFileName1, tempDataFileName2);
 //                fflush(gnuplotPipe);
