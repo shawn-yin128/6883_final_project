@@ -23,8 +23,9 @@ namespace fre {
     void GNU::_plotResults(const Vector& xData, map<string, Vector>& yData) {
         double x, y;
         FILE* gnuplotPipe, * tempDataFile;
-        // gnuplotPipe = popen(EXE_PATH_MAC.c_str(),"w");       for MAC
-        gnuplotPipe = _popen(EXE_PATH.c_str(), "w");
+
+        gnuplotPipe = popen(EXE_PATH_MAC.c_str(),"w"); // for MAC
+        // gnuplotPipe = _popen(EXE_PATH_PC.c_str(), "w");
 
         if (gnuplotPipe) {
             string command = "plot ";
