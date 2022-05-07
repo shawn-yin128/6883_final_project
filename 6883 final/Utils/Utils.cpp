@@ -9,7 +9,6 @@
 #include <map>
 #include <algorithm>
 
-
 using namespace std;
 
 namespace fre {

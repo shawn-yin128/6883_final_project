@@ -17,6 +17,15 @@ const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
 // const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
+bool dowanloadFlag = 0;
+void download(map<string, Stock> stocks) {
+    ConcurrentDownloader concurrentDownloader;
+    vector<string> symbols = processSymbolFile(SYMBOL);
+    concurrentDownloader.parse(CONFIG, symbols);
+    stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
+    dowanloadFlag = 1;
+}
+
 int main(void) {
     srand((unsigned)time(NULL));
     int selection;
@@ -46,6 +55,8 @@ int main(void) {
     map<string, float> surpriseMap;
     int N,M, K;
 
+    thread downloadThread(download, stocks);
+    
     bool run = 1;
     while (run) {
         cout << MENU;
@@ -66,10 +77,8 @@ int main(void) {
                 parser.populateDate();         // change from string to Stock
                 IWV = parser.getIWV();
                 
-                ConcurrentDownloader concurrentDownloader;
-                vector<string> symbols = processSymbolFile(SYMBOL);
-                concurrentDownloader.parse(CONFIG, symbols);
-                stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
+                while (!dowanloadFlag) {
+                }
                 
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
@@ -79,7 +88,7 @@ int main(void) {
                 }
                 
                 // sort and group
-                annMap = parser.getAnnMap();
+                annMap = processAnnouncementFile(ANNOUNCEMENT);
                 for (map<string, Stock>::iterator itr = validStocks.begin(); itr != validStocks.end(); itr++) {
                     string symbol = itr->first;
                     string surprise = annMap[symbol][5];

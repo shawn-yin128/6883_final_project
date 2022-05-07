@@ -11,6 +11,7 @@
 using namespace std;
 
 namespace fre {
+    const int THREAD_NUMBER = 3;
     class ConcurrentParser {
     public:
         void operator()(string configFile, vector<string> symbols, map<string, string>* dataMap) {
@@ -23,7 +24,7 @@ namespace fre {
 
     class ConcurrentDownloader {
     public:
-        map<string, string> dataMap[7];
+        map<string, string> dataMap[THREAD_NUMBER];
         map<string, string> plainData;
         void parse(string configFile, vector<string> symbols);
         map<string, Stock> populate(string configFile, string annFile);
