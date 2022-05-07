@@ -86,8 +86,8 @@ int main(void) {
                 meet.clear();
                 beat.clear();
                 miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 );
-                meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 + 1);
-                beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 + 1, orderedStocks.end());
+                meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 );
+                beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 , orderedStocks.end());
                 //for (int i = 0; i < orderedStocks.size(); i++) {
                 //    if (i < orderedStocks.size()/3) {
                 //        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];

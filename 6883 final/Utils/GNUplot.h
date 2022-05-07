@@ -10,15 +10,20 @@
 //		const string EXE_PATH_PC = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
 //		const string EXE_PATH_MAC = "/opt/local/bin/gnuplot";
 //
-//		void _plotResults(Vector& xData, map<string, Vector>& yData) {
+//		void _plotResults(const Vector& xData, const map<string, Vector>& yData) {
 //            FILE* gnuplotPipe, * tempDataFile;
-//            const char* tempDataFileName1 = "tempData1";
-//            const char* tempDataFileName2 = "tempData2";
-//            double x, y, x2, y2;
-//            int i;
 //            // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       for MAC
 //            gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
+//
+//
+//            //const char* tempDataFileName1 = "tempData1";
+//            //const char* tempDataFileName2 = "tempData2";
+//            //double x, y, x2, y2;
+//            //int i;
 //            if (gnuplotPipe) {
+//                string commant = "plot ";
+//                for (map<string, Vector>::iterator)
+//
 //                fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines\n", tempDataFileName1, tempDataFileName2);
 //                fflush(gnuplotPipe);
 //                tempDataFile = fopen(tempDataFileName1, "w");
