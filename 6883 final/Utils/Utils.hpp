@@ -50,6 +50,8 @@ namespace fre {
     }
 
     string& stringCapitalize(string& str);
+
+    vector<string> slicing(vector<string>& arr, int X, int Y);
 }
 
 #endif /* Utils_hpp */

@@ -4,6 +4,7 @@
 #include <time.h>
 #include "Utils/Utils.hpp"
 #include "Utils/Parser.hpp"
+#include "Utils/Concurrent.hpp"
 #include "Models/Model.h"
 #include "Models/Stock.hpp"
 #include "Models/Trade.hpp"
@@ -13,8 +14,8 @@ using namespace fre;
 
 const string CONFIG = "config_mac.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
-//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
-const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
+const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+// const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 int main(void) {
     srand((unsigned)time(NULL));
@@ -58,16 +59,27 @@ int main(void) {
                 
                 // parse all data and 2N+1 interval data
                 Parser parser(CONFIG);
-                parser.loadSymbol(ANNOUNCEMENT);
+                vector<string> iwv;
+                iwv.clear();
+                iwv.push_back("IWV");
+                parser.loadSymbol(iwv);
                 parser.downloadData();
-                stocks = parser.populateDate();         // change from string to Stock
+                parser.populateDate();         // change from string to Stock
                 IWV = parser.getIWV();
+                
+                ConcurrentDownloader concurrentDownloader;
+                vector<string> symbols = processSymbolFile(SYMBOL);
+                concurrentDownloader.parse(CONFIG, symbols);
+                stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
+                
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         itr->second.computeAR(N, IWV);
                         validStocks[itr->second.getSymbol()] = itr->second;
                     }
                 }
+                
+                
                 
                 // sort and group
                 annMap = parser.getAnnMap();

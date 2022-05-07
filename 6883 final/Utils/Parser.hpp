@@ -53,6 +53,9 @@ namespace fre {
             // populate data
             map<string, Stock> populateDate();
         
+            // setter
+            void setData(map<string, string> data);
+        
             // getter
             map<string, string> getData() {return plainData;}
             vector<string> getSymbol() {return symbolVector;}

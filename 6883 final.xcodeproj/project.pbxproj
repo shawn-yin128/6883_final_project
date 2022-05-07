@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2911BEE428260E8E00C7885D /* GNUplot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2911BEE328260E8E00C7885D /* GNUplot.cpp */; };
+		2911BEE728260F1100C7885D /* Concurrent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2911BEE628260F1100C7885D /* Concurrent.cpp */; };
 		2924CB10281B90A700626FC2 /* Stock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2924CB0E281B90A700626FC2 /* Stock.cpp */; };
 		2924CB13281B90B000626FC2 /* Trade.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2924CB11281B90B000626FC2 /* Trade.cpp */; };
 		2985CBA72825ADF500F37CC4 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2985CBA52825A82300F37CC4 /* Model.cpp */; };
@@ -28,6 +30,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2911BEE228260E8E00C7885D /* GNUplot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNUplot.h; sourceTree = "<group>"; };
+		2911BEE328260E8E00C7885D /* GNUplot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GNUplot.cpp; sourceTree = "<group>"; };
+		2911BEE528260F1100C7885D /* Concurrent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Concurrent.hpp; sourceTree = "<group>"; };
+		2911BEE628260F1100C7885D /* Concurrent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Concurrent.cpp; sourceTree = "<group>"; };
 		2924CB0E281B90A700626FC2 /* Stock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Stock.cpp; sourceTree = "<group>"; };
 		2924CB0F281B90A700626FC2 /* Stock.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Stock.hpp; sourceTree = "<group>"; };
 		2924CB11281B90B000626FC2 /* Trade.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Trade.cpp; sourceTree = "<group>"; };
@@ -90,6 +96,10 @@
 		7A8AADCE281478B3003DAF38 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2911BEE628260F1100C7885D /* Concurrent.cpp */,
+				2911BEE528260F1100C7885D /* Concurrent.hpp */,
+				2911BEE328260E8E00C7885D /* GNUplot.cpp */,
+				2911BEE228260E8E00C7885D /* GNUplot.h */,
 				7A8AADD0281479BF003DAF38 /* Parser.cpp */,
 				7A8AADD1281479BF003DAF38 /* Parser.hpp */,
 				7A8AADCB2814764C003DAF38 /* Utils.cpp */,
@@ -170,8 +180,10 @@
 			files = (
 				7A8AADBF2814746B003DAF38 /* main.cpp in Sources */,
 				7A8AADD2281479BF003DAF38 /* Parser.cpp in Sources */,
+				2911BEE728260F1100C7885D /* Concurrent.cpp in Sources */,
 				2924CB10281B90A700626FC2 /* Stock.cpp in Sources */,
 				2985CBA72825ADF500F37CC4 /* Model.cpp in Sources */,
+				2911BEE428260E8E00C7885D /* GNUplot.cpp in Sources */,
 				7A8AADCD2814764C003DAF38 /* Utils.cpp in Sources */,
 				2924CB13281B90B000626FC2 /* Trade.cpp in Sources */,
 			);

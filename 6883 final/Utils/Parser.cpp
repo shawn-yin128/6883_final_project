@@ -111,4 +111,9 @@ namespace fre {
         }
         return Stocks;
     }
+
+    // setter
+    void Parser::setData(map<string, string> data) {
+        plainData = data;
+    }
 }
