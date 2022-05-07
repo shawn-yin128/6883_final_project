@@ -22,12 +22,13 @@ const string SYMBOL = "Russell_3000_component_stocks_test.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 bool dowanloadFlag = 0;
-void download(map<string, Stock>* stocks) {
+int download(map<string, Stock>* stocks) {
     ConcurrentDownloader concurrentDownloader;
     vector<string> symbols = processSymbolFile(SYMBOL);
     concurrentDownloader.parse(CONFIG, symbols);
     *stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
     dowanloadFlag = 1;
+    return 0;
 }
 
 int main(void) {
@@ -86,7 +87,7 @@ int main(void) {
                 
                 while (!dowanloadFlag) {
                 }
-                
+
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         itr->second.computeAR(N, IWV);
@@ -226,6 +227,7 @@ int main(void) {
             case 8: {
                 cout << "Program shut down, bye." << endl;
                 run = 0;
+                downloadThread.join();
                 break;
             }
             case 9: {
