@@ -15,8 +15,11 @@ namespace fre {
         thread parser3(ConcurrentParser(), configFile, slicing(symbols, 2 * symbols.size()/THREAD_NUMBER + 1, symbols.size() - 1), &dataMap[2]);
         
         parser1.join();
+        cout << "Download Thread 1 started." << endl;
         parser2.join();
+        cout << "Download Thread 2 started." << endl;
         parser3.join();
+        cout << "Download Thread 3 started." << endl;
     }
 
     map<string, Stock> ConcurrentDownloader::populate(string configFile, string annFile) {
@@ -28,6 +31,7 @@ namespace fre {
         parser.loadSymbol(annFile);
         parser.setData(plainData);
         map<string, Stock> stocks = parser.populateDate();
+        cout << "Data ready." << endl;
         return stocks;
     }
 }
