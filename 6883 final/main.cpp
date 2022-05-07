@@ -5,6 +5,7 @@
 #include "Utils/Utils.hpp"
 #include "Utils/Parser.hpp"
 #include "Utils/Concurrent.hpp"
+#include "Utils/GNUplot.h"
 #include "Models/Model.h"
 #include "Models/Stock.hpp"
 #include "Models/Trade.hpp"
@@ -15,7 +16,7 @@ using namespace fre;
 const string CONFIG = "config_mac.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
-// const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
+//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 bool dowanloadFlag = 0;
 void download(map<string, Stock> stocks) {
@@ -30,16 +31,17 @@ int main(void) {
     srand((unsigned)time(NULL));
     int selection;
     const string MENU = string("Menu\n")
-    + "===========================================================================\n"
-    + "1 - Enter N to retrieve 2N+1 days of historical price data for all stocks.\n"
-    + "2 - Pull information for one stock from one group.\n"
-    + "3 - Show AAR, AAR-STD, CAAR and CAAR-STD for one group.\n"
-    + "4 - Plot Avg CAAR for 3 groups.\n"
-    + "5 - Plot STD CAAR for 3 groups.\n"
-    + "6 - Plot Avg AAR for 3 groups.\n"
-    + "7 - Plot STD AAR for 3 groups.\n"
-    + "8 - Exit.\n"
-    + "9 - Print stock list of specific group with surprise.\n";
+        + "===========================================================================\n"
+        + "1 - Enter N to retrieve 2N+1 days of historical price data for all stocks.\n"
+        + "2 - Pull information for one stock from one group.\n"
+        + "3 - Show AAR, AAR-STD, CAAR and CAAR-STD for one group.\n"
+        + "4 - Plot Avg CAAR for 3 groups.\n"
+        + "5 - Plot STD CAAR for 3 groups.\n"
+        + "6 - Plot Avg AAR for 3 groups.\n"
+        + "7 - Plot STD AAR for 3 groups.\n"
+        + "8 - Exit.\n"
+        + "9 - Print stock list of specific group with surprise.\n"
+        + "===========================================================================\n";
     
     
 /*    map<string, Stock> beat;
@@ -54,13 +56,15 @@ int main(void) {
     map<string, vector<string>> annMap;
     map<string, float> surpriseMap;
     int N,M, K;
+    Bootstrapping model;
+    GNU gnuplot;
 
     thread downloadThread(download, stocks);
     
     bool run = 1;
     while (run) {
         cout << MENU;
-        cout << "===========================================================================\nPlease enter your choice and press return: ";
+        cout << "Please enter your choice and press return: ";
         cin >> selection;
         switch (selection) {
             case 1: {
@@ -69,10 +73,10 @@ int main(void) {
                 
                 // parse all data and 2N+1 interval data
                 Parser parser(CONFIG);
-                vector<string> iwv;
-                iwv.clear();
-                iwv.push_back("IWV");
-                parser.loadSymbol(iwv);
+                vector<string> benchmark;
+                benchmark.clear();
+                benchmark.push_back("IWV");
+                parser.loadSymbol(benchmark);
                 parser.downloadData();
                 parser.populateDate();         // change from string to Stock
                 IWV = parser.getIWV();
@@ -115,6 +119,9 @@ int main(void) {
                 //        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
                 //    }
                 //}
+
+                // GNU plot
+                gnuplot.create_xData(N);
 
                 break;
             }
@@ -160,20 +167,38 @@ int main(void) {
                 int gp;
                 cin >> gp;
                 if (gp == 0) break;
-                model.printResult(gp - 1);
+                gp--;
+                model.printResult(gp);
+
+                // Plot AAR, AAR-STD, CAAR and CAAR-STD for one group.
+                map<string, Vector> MeanCAAR = model.getMeanCAAR();
+                gnuplot.plotResults(gnuplot.get_xData(), model.getMetrics(gp), model.getMetricsName());
+
                 goto VisuliseResult;
                 break;
             }
             case 4: {
+                // Plot Avg CAAR for 3 groups
+                map<string, Vector> MeanCAAR = model.getMeanCAAR();
+                gnuplot.plotResults(gnuplot.get_xData(), MeanCAAR);
                 break;
             }
             case 5: {
+                // Plot STD CAAR for 3 groups
+                map<string, Vector> StdCAAR = model.getStdCAAR();
+                gnuplot.plotResults(gnuplot.get_xData(), StdCAAR);
                 break;
             }
             case 6: {
+                // Plot Avg AAR for 3 groups.
+                map<string, Vector> MeanAAR = model.getMeanAAR();
+                gnuplot.plotResults(gnuplot.get_xData(), MeanAAR);
                 break;
             }
             case 7: {
+                // Plot STD AAR for 3 groups.
+                map<string, Vector> StdAAR = model.getStdAAR();
+                gnuplot.plotResults(gnuplot.get_xData(), StdAAR);
                 break;
             }
             case 8: {

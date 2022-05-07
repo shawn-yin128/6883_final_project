@@ -171,7 +171,41 @@ namespace fre {
 		cout << setw(WIDTH) << "STD-CAAR" <<endl;
 		cout << line << endl;
 		cout<<result[group_enum(gp)];
-
 	}
+
+	const Matrix& Bootstrapping::getMetrics(int gp) {
+		if (gp < 0 || gp>2) cerr << "Bootstrapping::getMetrics: invalid input gp." << endl;
+		return result[group_enum(gp)];
+	}
+
+	map<string, Vector> Bootstrapping::getMeanCAAR() {
+		map<string, Vector> MeanCAAR;
+		for (int i = 0; i < 3; i++) {
+			MeanCAAR[group_str[group_enum(i)]] = result[group_enum(i)][2];
+		}
+		return MeanCAAR;
+	}
+	map<string, Vector> Bootstrapping::getStdCAAR() {
+		map<string, Vector> StdCAAR;
+		for (int i = 0; i < 3; i++) {
+			StdCAAR[group_str[group_enum(i)]] = result[group_enum(i)][3];
+		}
+		return StdCAAR;
+	}
+	map<string, Vector> Bootstrapping::getMeanAAR() {
+		map<string, Vector> MeanAAR;
+		for (int i = 0; i < 3; i++) {
+			MeanAAR[group_str[group_enum(i)]] = result[group_enum(i)][0];
+		}
+		return MeanAAR;
+	}
+	map<string, Vector> Bootstrapping::getStdAAR() {
+		map<string, Vector> StdAAR;
+		for (int i = 0; i < 3; i++) {
+			StdAAR[group_str[group_enum(i)]] = result[group_enum(i)][1];
+		}
+		return StdAAR;
+	}
+
 
 }

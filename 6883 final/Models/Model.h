@@ -33,7 +33,7 @@ namespace fre {
 	class Bootstrapping {
 	private:
 		map<group_enum, string> group_str{ {miss_0,"miss"}, {meet_1,"meet"}, {beat_2,"beat"} };
-
+		vector<string> metrics_Name{ "Mean-AAR","Std-AAR","Mean-CAAR","Std-CAAR" };
 		int N;					// number of observation days before/after Day0
 		int M;					// number of stocks picked in each group
 		int K;					// number of times of bootstrapping
@@ -57,7 +57,13 @@ namespace fre {
 		void run_BtStp();
 		void printResult(int gp);
 
-
+		const Matrix& getMetrics(int gp);
+		map<string,Vector> getStdCAAR();
+		map<string,Vector> getMeanCAAR();
+		map<string,Vector> getMeanAAR();
+		map<string,Vector> getStdAAR();
+		string getGroupName(int gp) { return group_str[group_enum(gp)]; }
+		vector<string> getMetricsName() { return metrics_Name; }
 	};
 }
 
