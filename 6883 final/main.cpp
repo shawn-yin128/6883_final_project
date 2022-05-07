@@ -53,7 +53,6 @@ int main(void) {
         cin >> selection;
         switch (selection) {
             case 1: {
-                
                 cout << "Please enter N: ";
                 cin >> N;
                 
@@ -78,8 +77,6 @@ int main(void) {
                         validStocks[itr->second.getSymbol()] = itr->second;
                     }
                 }
-                
-                
                 
                 // sort and group
                 annMap = parser.getAnnMap();
@@ -209,6 +206,8 @@ int main(void) {
             }
             default: {
                 cout << "Input invalid selection, please re-enter." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 break;
             }
         }
