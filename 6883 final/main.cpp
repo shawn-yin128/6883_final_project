@@ -64,7 +64,7 @@ int main(void) {
     GNU gnuplot;
 
     thread downloadThread(download, &stocks);
-    
+
     bool run = 1;
     while (run) {
         cout << MENU;
@@ -81,7 +81,7 @@ int main(void) {
                 benchmark.clear();
                 benchmark.push_back("IWV");
                 parser.loadSymbol(benchmark);
-                parser.downloadData();
+                parser.downloadData(false);
                 parser.populateDate();         // change from string to Stock
                 IWV = parser.getIWV();
                 

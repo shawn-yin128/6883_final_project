@@ -14,10 +14,10 @@ namespace fre {
     const int THREAD_NUMBER = 3;
     class ConcurrentParser {
     public:
-        void operator()(string configFile, vector<string> symbols, map<string, string>* dataMap) {
+        void operator()(string configFile, vector<string> symbols, map<string, string>* dataMap, bool print) {
             Parser parser(configFile);
             parser.loadSymbol(symbols);
-            parser.downloadData();
+            parser.downloadData(print);
             *dataMap = parser.getData();
         }
     };

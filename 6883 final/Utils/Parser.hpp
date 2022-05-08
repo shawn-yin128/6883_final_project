@@ -49,7 +49,7 @@ namespace fre {
             int loadSymbol(vector<string> symbols);
         
             // download data
-            int downloadData();
+            int downloadData(bool print);
         
             // populate data
             map<string, Stock> populateDate();
