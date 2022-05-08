@@ -86,7 +86,7 @@ namespace fre {
                     else cout << " ";
                 }
                 cout << "] " << int(progress * 100.0) << " %\r";
-                //cout.flush();
+                cout.flush();
 
             }
                 //progressBar(ref(cout), i, nData);
