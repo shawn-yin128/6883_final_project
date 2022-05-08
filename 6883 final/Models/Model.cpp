@@ -91,7 +91,7 @@ namespace fre {
 	Vector& Bootstrapping::calAAR(vector<string>& group, Vector& AAR) {
 		vector<string> stocks;
 		stocks = sampling_NoReplace<vector<string>>(group, M);
-		cout << stocks << endl;
+		//cout << stocks << endl;
 
 		if (AAR.size() != 2 * N) AAR.resize(2 * N);		// restrict the size to be 2N
 		fill(AAR.begin(), AAR.end(), 0);			
@@ -160,6 +160,7 @@ namespace fre {
 			result[gp][3] -= result[gp][2] ^ 2;					// Hsq- H*H
 			result[gp][3] = result[gp][3] ^ 0.5;				// std = sqrt(Hsq- H*H)
 		}
+		ran = true;
 	}
 	void Bootstrapping::printResult( int gp) {
 		string line(WIDTH*5, '_');

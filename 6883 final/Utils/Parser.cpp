@@ -63,6 +63,7 @@ namespace fre {
             return -1;
         }
         int nData = symbolVector.size();
+        double progress = 0;
         for (int i = 0; i < nData; i++) {
             string urlRequest = urlCommon + symbolVector[i] + ".US?" + "from=" + startDate + "&to=" + endDate + "&api_token=" + apiToken + "&period=d";
             string readBuffer;
@@ -75,9 +76,9 @@ namespace fre {
             result = curl_easy_perform(handle);
             plainData[symbolVector[i]] = readBuffer;
             //cout << symbolVector[i] << " has been downloaded." << endl;
-            if (print)
+            if (print && (i + 1 == nData || ((i + 1.0) / nData - progress) >= 0.02)) 
             {
-                double progress = (i + 1.0) / nData;
+                progress = (i + 1.0) / nData;
                 cout << "Downloading Data: [";
                 int pos = barWidth * progress;
                 for (int k = 0; k < barWidth; ++k) {
@@ -91,8 +92,11 @@ namespace fre {
             }
                 //progressBar(ref(cout), i, nData);
         }
-        if (print) 
+        if (print) {
             cout << endl;
+            cout << "Data processing ... Please wait." << endl;
+        }
+            
         curl_easy_cleanup(handle);
         return 0;
     }
