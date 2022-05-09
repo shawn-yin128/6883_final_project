@@ -16,18 +16,20 @@ using namespace std;
 using namespace fre;
 
 const string CONFIG = "config_mac.csv";
-const string SYMBOL = "Russell_3000_component_stocks_test.csv";
-//const string SYMBOL = "Russell_3000_component_stocks.csv";
-//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
-const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
+//const string SYMBOL = "Russell_3000_component_stocks_test.csv";
+const string SYMBOL = "Russell_3000_component_stocks.csv";
+const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 bool dowanloadFlag = 0;
-void download(map<string, Stock>* stocks) {
+int download(map<string, Stock>* stocks) {
     ConcurrentDownloader concurrentDownloader;
     vector<string> symbols = processSymbolFile(SYMBOL);
     concurrentDownloader.parse(CONFIG, symbols);
     *stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
     dowanloadFlag = 1;
+    cout << "Downloaded Stock's Data: " << stocks->size() << endl;
+    return 0;
 }
 
 int main(void) {
@@ -42,8 +44,9 @@ int main(void) {
         + "5 - Plot STD CAAR for 3 groups.\n"
         + "6 - Plot Avg AAR for 3 groups.\n"
         + "7 - Plot STD AAR for 3 groups.\n"
-        + "8 - Exit.\n"
-        + "9 - Print stock list of specific group with surprise.\n"
+        + "8 - Print stock list of specific group with surprise.\n"
+        + "9 - Redo Bootstrapping.\n"
+        + "10 - Exit.\n"
         + "===========================================================================\n";
     
     
@@ -63,30 +66,38 @@ int main(void) {
     GNU gnuplot;
 
     thread downloadThread(download, &stocks);
-    
+
+    // parse all data and 2N+1 interval data
+    Parser parser(CONFIG);
+    vector<string> benchmark;
+    benchmark.clear();
+    benchmark.push_back("IWV");
+    parser.loadSymbol(benchmark);
+    parser.downloadData(false);
+    parser.populateDate();         // change from string to Stock
+    IWV = parser.getIWV();
+
     bool run = 1;
     while (run) {
         cout << MENU;
+
+        while (!dowanloadFlag) {
+        }
+
         cout << "Please enter your choice and press return: ";
         cin >> selection;
         switch (selection) {
             case 1: {
-                cout << "Please enter N: ";
+            InputN:
+                cout << "Please enter N or enter 0 to return Menu: ";
                 cin >> N;
-                
-                // parse all data and 2N+1 interval data
-                Parser parser(CONFIG);
-                vector<string> benchmark;
-                benchmark.clear();
-                benchmark.push_back("IWV");
-                parser.loadSymbol(benchmark);
-                parser.downloadData();
-                parser.populateDate();         // change from string to Stock
-                IWV = parser.getIWV();
-                
-                while (!dowanloadFlag) {
+                if (N == 0) {
+                    break;
+                } else if (N < 60 || N>90) {
+                    cout << "Invalid valud N: 60 <= N <= 90 " << endl;
+                    goto InputN;
                 }
-                
+
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         itr->second.computeAR(N, IWV);
@@ -145,6 +156,10 @@ int main(void) {
                 // GNU plot
                 gnuplot.create_xData(N);
 
+                // Default Model calculation
+                model = Bootstrapping(N, 80, 40, beat, miss, meet, IWV, validStocks);
+                model.run_BtStp();
+
                 break;
             }
             case 2: {
@@ -172,17 +187,10 @@ int main(void) {
                 break;
             }
             case 3: {
-                // Model calculation
-                cout << "Please enter M - number of stocks picked in each group or enter 0 to return Menu: ";
-                cin >> M;
-                if (M == 0) break;
-
-                cout << "Please enter K - number of times of bootstrapping or enter 0 to return Menu: ";
-                cin >> K;
-                if (K == 0) break;
-
-                model = Bootstrapping(N, M, K, beat, miss, meet, IWV, validStocks);
-                model.run_BtStp();
+                if (!model.checkIfRan()) {
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
 
             VisuliseResult:
                 cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
@@ -200,35 +208,46 @@ int main(void) {
                 break;
             }
             case 4: {
+                if (!model.checkIfRan()) {
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
                 // Plot Avg CAAR for 3 groups
                 map<string, Vector> MeanCAAR = model.getMeanCAAR();
                 gnuplot.plotResults(gnuplot.get_xData(), MeanCAAR);
                 break;
             }
             case 5: {
+                if (!model.checkIfRan()) {
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
                 // Plot STD CAAR for 3 groups
                 map<string, Vector> StdCAAR = model.getStdCAAR();
                 gnuplot.plotResults(gnuplot.get_xData(), StdCAAR);
                 break;
             }
             case 6: {
+                if (!model.checkIfRan()) {
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
                 // Plot Avg AAR for 3 groups.
                 map<string, Vector> MeanAAR = model.getMeanAAR();
                 gnuplot.plotResults(gnuplot.get_xData(), MeanAAR);
                 break;
             }
             case 7: {
+                if (!model.checkIfRan()) {
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
                 // Plot STD AAR for 3 groups.
                 map<string, Vector> StdAAR = model.getStdAAR();
                 gnuplot.plotResults(gnuplot.get_xData(), StdAAR);
                 break;
             }
             case 8: {
-                cout << "Program shut down, bye." << endl;
-                run = 0;
-                break;
-            }
-            case 9: {
             PrintStockList:
                 int gp;
                 cout << "Please enter group 1-miss, 2-meet, 3-beat or enter 0 to return Menu: ";
@@ -258,6 +277,28 @@ int main(void) {
                 }
                 }
                 goto PrintStockList;
+                break;
+            }
+            case 9: {
+                // Model calculation
+                // redo Model calculation
+                cout << "Please enter M (80) - number of stocks picked in each group or enter 0 to return Menu: ";
+                cin >> M;
+                if (M == 0) break;
+
+                cout << "Please enter K (40) - number of times of bootstrapping or enter 0 to return Menu: ";
+                cin >> K;
+                if (K == 0) break;
+
+                model = Bootstrapping(N, M, K, beat, miss, meet, IWV, validStocks);
+                model.run_BtStp();
+
+                break;
+            }
+            case 10: {
+                cout << "Program shut down, bye." << endl;
+                run = 0;
+                downloadThread.join();
                 break;
             }
             default: {

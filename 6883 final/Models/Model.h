@@ -37,6 +37,7 @@ namespace fre {
 		int N;					// number of observation days before/after Day0
 		int M;					// number of stocks picked in each group
 		int K;					// number of times of bootstrapping
+		bool ran;
 		vector<string> beat;
 		vector<string> miss;
 		vector<string> meet;
@@ -48,11 +49,11 @@ namespace fre {
 		Vector& calCAAR(Vector& AAR, Vector& CAAR);
 
 	public:
-		Bootstrapping() :N(60),M(80), K(40) {}
+		Bootstrapping() :N(60),M(80), K(40), ran(false) {}
 		Bootstrapping(int N_, int M_, int K_,
 			vector<string>& beat_, vector<string>& miss_, vector<string>& meet_, 
 			Stock& benchmark_, map<string, Stock>& validStocks_) :
-			N(N_), M(M_), K(K_), beat(beat_), miss(miss_), meet(meet_), benchmark(benchmark_), validStocks(validStocks_) {}
+			N(N_), M(M_), K(K_), beat(beat_), miss(miss_), meet(meet_), benchmark(benchmark_), validStocks(validStocks_), ran(false) {}
 
 		void run_BtStp();
 		void printResult(int gp);
@@ -64,6 +65,8 @@ namespace fre {
 		map<string,Vector> getStdAAR();
 		string getGroupName(int gp) { return group_str[group_enum(gp)]; }
 		vector<string> getMetricsName() { return metrics_Name; }
+
+		bool checkIfRan() { return ran; }
 	};
 }
 

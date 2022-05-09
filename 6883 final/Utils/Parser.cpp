@@ -50,7 +50,10 @@ namespace fre {
         return 0;
     }
 
-    int Parser::downloadData() {
+    int Parser::downloadData(bool print) {
+        int barWidth = 50;
+        if (print) cout << endl;
+
         curl_global_init(CURL_GLOBAL_ALL);
         CURL * handle;
         CURLcode result;
@@ -59,7 +62,9 @@ namespace fre {
             cout << "curl_easy_init failed" << endl;
             return -1;
         }
-        for (int i = 0; i < symbolVector.size(); i++) {
+        int nData = symbolVector.size();
+        double progress = 0;
+        for (int i = 0; i < nData; i++) {
             string urlRequest = urlCommon + symbolVector[i] + ".US?" + "from=" + startDate + "&to=" + endDate + "&api_token=" + apiToken + "&period=d";
             string readBuffer;
             curl_easy_setopt(handle, CURLOPT_URL, urlRequest.c_str());
@@ -70,11 +75,32 @@ namespace fre {
             curl_easy_setopt(handle, CURLOPT_WRITEDATA, &readBuffer);
             result = curl_easy_perform(handle);
             plainData[symbolVector[i]] = readBuffer;
-            cout << symbolVector[i] << " has been downloaded." << endl;
+            //cout << symbolVector[i] << " has been downloaded." << endl;
+            if (print && (i + 1 == nData || ((i + 1.0) / nData - progress) >= 0.02)) 
+            {
+                progress = (i + 1.0) / nData;
+                cout << "Downloading Data: [";
+                int pos = barWidth * progress;
+                for (int k = 0; k < barWidth; ++k) {
+                    if (k < pos) cout << "=";
+                    else if (k == pos) cout << ">";
+                    else cout << " ";
+                }
+                cout << "] " << int(progress * 100.0) << " %\r";
+                cout.flush();
+
+            }
+                //progressBar(ref(cout), i, nData);
         }
+        if (print) {
+            cout << endl;
+            cout << "Data processing ... Please wait." << endl;
+        }
+            
         curl_easy_cleanup(handle);
         return 0;
     }
+
 
     map<string, Stock> Parser::populateDate() {
         map<string, Stock> Stocks;
