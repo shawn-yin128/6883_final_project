@@ -10,9 +10,9 @@ using namespace std;
 
 namespace fre {
     void ConcurrentDownloader::parse(string configFile, vector<string> symbols) {
-        thread parser1(ConcurrentParser(), configFile, slicing(symbols, 0, symbols.size()/THREAD_NUMBER), &dataMap[0],true);
+        thread parser1(ConcurrentParser(), configFile, slicing(symbols, 0, symbols.size()/THREAD_NUMBER), &dataMap[0],false);
         thread parser2(ConcurrentParser(), configFile, slicing(symbols, symbols.size()/THREAD_NUMBER + 1, 2 * symbols.size()/THREAD_NUMBER), &dataMap[1],false);
-        thread parser3(ConcurrentParser(), configFile, slicing(symbols, 2 * symbols.size()/THREAD_NUMBER + 1, symbols.size() - 1), &dataMap[2], false);
+        thread parser3(ConcurrentParser(), configFile, slicing(symbols, 2 * symbols.size()/THREAD_NUMBER + 1, symbols.size() - 1), &dataMap[2], true);
         
         parser1.join();
         parser2.join();

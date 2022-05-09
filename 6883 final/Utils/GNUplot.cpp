@@ -98,73 +98,73 @@ namespace fre {
 
     }
 
-    void GNU::plotResults_test(const Vector& xData, const Matrix& yData_val, const vector<string>& yData_name) {
-        FILE* gnuplotPipe, * tempDataFile;
-        const char* tempDataFileName1 = yData_name[0].c_str();
-        const char* tempDataFileName2 = yData_name[1].c_str();
-        const char* tempDataFileName3 = yData_name[2].c_str();
-        const char* tempDataFileName4 = yData_name[3].c_str();
-        double x, y, x2, y2;
-        int i;
-        // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       // for MAC
-        gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
-        if (gnuplotPipe) {
-            fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines, \"%s\" with lines, \"%s\" with lines\n",
-                tempDataFileName1, tempDataFileName2, tempDataFileName3, tempDataFileName4);
-            fflush(gnuplotPipe);
+    //void GNU::plotResults_test(const Vector& xData, const Matrix& yData_val, const vector<string>& yData_name) {
+    //    FILE* gnuplotPipe, * tempDataFile;
+    //    const char* tempDataFileName1 = yData_name[0].c_str();
+    //    const char* tempDataFileName2 = yData_name[1].c_str();
+    //    const char* tempDataFileName3 = yData_name[2].c_str();
+    //    const char* tempDataFileName4 = yData_name[3].c_str();
+    //    double x, y, x2, y2;
+    //    int i;
+    //    // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       // for MAC
+    //    gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
+    //    if (gnuplotPipe) {
+    //        fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines, \"%s\" with lines, \"%s\" with lines\n",
+    //            tempDataFileName1, tempDataFileName2, tempDataFileName3, tempDataFileName4);
+    //        fflush(gnuplotPipe);
 
-            tempDataFile = fopen(tempDataFileName1, "w");
-            for (i = 0; i < xData.size(); i++) {
-                x = xData[i];
-                y = yData_val[0][i];
-                fprintf(tempDataFile, "%lf %lf\n", x, y);
-            }
-            fclose(tempDataFile);
+    //        tempDataFile = fopen(tempDataFileName1, "w");
+    //        for (i = 0; i < xData.size(); i++) {
+    //            x = xData[i];
+    //            y = yData_val[0][i];
+    //            fprintf(tempDataFile, "%lf %lf\n", x, y);
+    //        }
+    //        fclose(tempDataFile);
 
-            tempDataFile = fopen(tempDataFileName2, "w");
-            for (i = 0; i < xData.size(); i++) {
-                x = xData[i];
-                y = yData_val[1][i];
-                fprintf(tempDataFile, "%lf %lf\n", x, y);
-            }
-            fclose(tempDataFile);
+    //        tempDataFile = fopen(tempDataFileName2, "w");
+    //        for (i = 0; i < xData.size(); i++) {
+    //            x = xData[i];
+    //            y = yData_val[1][i];
+    //            fprintf(tempDataFile, "%lf %lf\n", x, y);
+    //        }
+    //        fclose(tempDataFile);
 
-            tempDataFile = fopen(tempDataFileName3, "w");
-            for (i = 0; i < xData.size(); i++) {
-                x = xData[i];
-                y = yData_val[2][i];
-                fprintf(tempDataFile, "%lf %lf\n", x, y);
-            }
-            fclose(tempDataFile);
+    //        tempDataFile = fopen(tempDataFileName3, "w");
+    //        for (i = 0; i < xData.size(); i++) {
+    //            x = xData[i];
+    //            y = yData_val[2][i];
+    //            fprintf(tempDataFile, "%lf %lf\n", x, y);
+    //        }
+    //        fclose(tempDataFile);
 
-            tempDataFile = fopen(tempDataFileName4, "w");
-            for (i = 0; i < xData.size(); i++) {
-                x = xData[i];
-                y = yData_val[3][i];
-                fprintf(tempDataFile, "%lf %lf\n", x, y);
-            }
-            fclose(tempDataFile);
-
-
-
-            cin.clear();
-            //cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            std::this_thread::sleep_for(std::chrono::milliseconds(2000));    // sleep for 1 second
-
-            printf("press enter to continue...");
-            getchar();
-
-            remove(tempDataFileName1);
-            remove(tempDataFileName2);
-            remove(tempDataFileName3);
-            remove(tempDataFileName4);
+    //        tempDataFile = fopen(tempDataFileName4, "w");
+    //        for (i = 0; i < xData.size(); i++) {
+    //            x = xData[i];
+    //            y = yData_val[3][i];
+    //            fprintf(tempDataFile, "%lf %lf\n", x, y);
+    //        }
+    //        fclose(tempDataFile);
 
 
-            fprintf(gnuplotPipe, "exit \n");
-        }
-        else {
-            printf("gnuplot not found...");
-        }
-    }
+
+    //        cin.clear();
+    //        //cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    //        std::this_thread::sleep_for(std::chrono::milliseconds(2000));    // sleep for 1 second
+
+    //        printf("press enter to continue...");
+    //        getchar();
+
+    //        remove(tempDataFileName1);
+    //        remove(tempDataFileName2);
+    //        remove(tempDataFileName3);
+    //        remove(tempDataFileName4);
+
+
+    //        fprintf(gnuplotPipe, "exit \n");
+    //    }
+    //    else {
+    //        printf("gnuplot not found...");
+    //    }
+    //}
 
 }

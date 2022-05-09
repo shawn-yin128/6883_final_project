@@ -14,7 +14,7 @@ namespace fre {
 		Vector xData;
 
 		void _plotResults(const Vector& xData, map<string, Vector>& yData);
-		void plotResults_test(const Vector& xData, const Matrix& yData_val, const vector<string>& yData_name);
+		//void plotResults_test(const Vector& xData, const Matrix& yData_val, const vector<string>& yData_name);
 
 	public:
 
