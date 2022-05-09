@@ -6,6 +6,74 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
+		<key>29307FD7-5274-4958-BA53-6D6773F2DC3C</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>29307FD7-5274-4958-BA53-6D6773F2DC3C.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>6883 final project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>6883 final</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build 6883 final</string>
+			<key>timeStartedRecording</key>
+			<real>673756323.710518</real>
+			<key>timeStoppedRecording</key>
+			<real>673756324.53081906</real>
+			<key>title</key>
+			<string>Build 6883 final</string>
+			<key>uniqueIdentifier</key>
+			<string>29307FD7-5274-4958-BA53-6D6773F2DC3C</string>
+		</dict>
+		<key>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>6883 final project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>6883 final</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build 6883 final</string>
+			<key>timeStartedRecording</key>
+			<real>673756305.40547001</real>
+			<key>timeStoppedRecording</key>
+			<real>673756306.86779404</real>
+			<key>title</key>
+			<string>Build 6883 final</string>
+			<key>uniqueIdentifier</key>
+			<string>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B</string>
+		</dict>
 		<key>E9C9E9EE-757F-410A-A3D3-F4623BC311C9</key>
 		<dict>
 			<key>className</key>

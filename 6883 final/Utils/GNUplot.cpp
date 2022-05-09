@@ -106,7 +106,7 @@ namespace fre {
         const char* tempDataFileName4 = yData_name[3].c_str();
         double x, y, x2, y2;
         int i;
-        // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       for MAC
+        // gnuplotPipe = popen("/opt/local/bin/gnuplot","w");       // for MAC
         gnuplotPipe = _popen("C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe", "w");
         if (gnuplotPipe) {
             fprintf(gnuplotPipe, "plot \"%s\" with lines, \"%s\" with lines, \"%s\" with lines, \"%s\" with lines\n",

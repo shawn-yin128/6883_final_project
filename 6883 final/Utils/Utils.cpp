@@ -71,16 +71,9 @@ namespace fre {
 
     vector<string> processSymbolFile(string configFile) {
         vector<string> symbolVector;
-        ifstream fin;
-        fin.open(configFile, ios::in);
-        string line, symbol, description;
-        while (!fin.eof()) {
-            getline(fin, line);
-            stringstream sin(line);
-            getline(sin, symbol, ',');
-            getline(sin, description);
-            stringCapitalize(symbol);       // Ensure all symbol are in upper case
-            symbolVector.push_back(symbol);
+        map<string, vector<string>> annMap = processAnnouncementFile(configFile);
+        for (map<string, vector<string>>::iterator itr = annMap.begin(); itr != annMap.end(); itr++) {
+            symbolVector.push_back(itr->first);
         }
         return symbolVector;
     }

@@ -24,7 +24,7 @@ const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
 bool dowanloadFlag = 0;
 int download(map<string, Stock>* stocks) {
     ConcurrentDownloader concurrentDownloader;
-    vector<string> symbols = processSymbolFile(SYMBOL);
+    vector<string> symbols = processSymbolFile(ANNOUNCEMENT);
     concurrentDownloader.parse(CONFIG, symbols);
     *stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
     dowanloadFlag = 1;
