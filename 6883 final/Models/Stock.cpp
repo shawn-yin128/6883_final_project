@@ -45,21 +45,6 @@ namespace fre {
     }
 
     bool Stock::computeUsedData(int N) {
-        //for (vector<Trade>::iterator itr = trades.begin(); itr != trades.end(); itr++) {
-        //    if (itr->getDate() == announcementDate) {
-        //        //itr_Day0 = itr;
-        //        if (itr - trades.begin() < N || trades.end() - itr -1 < N) {
-        //            return false;
-        //        } else {
-        //            for (auto itr2 = itr - N; itr2 <= itr + N; itr2++) {
-        //                validTrades.push_back(*itr2);
-        //            }
-        //            return true;
-        //        }
-        //    }
-        //}
-        //return false;
-
         return _computeUsedData(N, announcementDate);
     }
 

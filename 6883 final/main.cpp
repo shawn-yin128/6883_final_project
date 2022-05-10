@@ -18,16 +18,14 @@ using namespace fre;
 const string CONFIG = "config_mac.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
-//const string SYMBOL = "Russell_3000_component_stocks_test.csv";
-//const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
-bool dowanloadFlag = 0;
+bool downloadFlag = 0;
 int download(map<string, Stock>* stocks) {
     ConcurrentDownloader concurrentDownloader;
     vector<string> symbols = processSymbolFile(ANNOUNCEMENT);
     concurrentDownloader.parse(CONFIG, symbols);
     *stocks = concurrentDownloader.populate(CONFIG, ANNOUNCEMENT);
-    dowanloadFlag = 1;
+    downloadFlag = 1;
     cout << "Downloaded Stock's Data: " << stocks->size() << endl;
     return 0;
 }
@@ -49,10 +47,6 @@ int main(void) {
         + "10 - Exit.\n"
         + "===========================================================================\n";
     
-    
-/*    map<string, Stock> beat;
-    map<string, Stock> miss;
-    map<string, Stock> meet;  */  
     vector<string> beat;
     vector<string> miss;
     vector<string> meet;
@@ -74,14 +68,14 @@ int main(void) {
     benchmark.push_back("IWV");
     parser.loadSymbol(benchmark);
     parser.downloadData(false);
-    parser.populateDate();         // change from string to Stock
+    parser.populateData();         // change from string to Stock
     IWV = parser.getIWV();
 
     bool run = 1;
     while (run) {
         cout << MENU;
 
-        while (!dowanloadFlag) {
+        while (!downloadFlag) {
         }
 
         cout << "Please enter your choice and press return: ";
@@ -139,19 +133,6 @@ int main(void) {
                         validStocks[orderedStocks[i]].setGroup("beat");
                     }
                 }
-                //miss.assign(orderedStocks.begin(), orderedStocks.begin() + size_oStk / 3 );
-                //meet.assign(orderedStocks.begin() + size_oStk / 3 , orderedStocks.begin() + size_oStk / 3 * 2 );
-                //beat.assign(orderedStocks.begin() + size_oStk / 3 * 2 , orderedStocks.end());
-
-                //for (int i = 0; i < orderedStocks.size(); i++) {
-                //    if (i < orderedStocks.size()/3) {
-                //        miss[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                //    } else if (i >= orderedStocks.size()/3 && i < 2*orderedStocks.size()/3) {
-                //        meet[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                //    } else {
-                //        beat[orderedStocks[i]] = validStocks[orderedStocks[i]];
-                //    }
-                //}
 
                 // GNU plot
                 gnuplot.create_xData(N);

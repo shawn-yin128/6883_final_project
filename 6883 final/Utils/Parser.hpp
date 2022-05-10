@@ -52,7 +52,7 @@ namespace fre {
             int downloadData(bool print);
         
             // populate data
-            map<string, Stock> populateDate();
+            map<string, Stock> populateData();
         
             // setter
             void setData(map<string, string> data);

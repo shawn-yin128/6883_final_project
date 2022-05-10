@@ -40,7 +40,7 @@
 			<key>uniqueIdentifier</key>
 			<string>29307FD7-5274-4958-BA53-6D6773F2DC3C</string>
 		</dict>
-		<key>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B</key>
+		<key>B22F83BD-F01B-4D26-9CC9-95DA380EBEAD</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -49,13 +49,13 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B.xcactivitylog</string>
+			<string>B22F83BD-F01B-4D26-9CC9-95DA380EBEAD.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>E</string>
+				<string>W</string>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>6883 final project</string>
@@ -66,15 +66,15 @@
 			<key>signature</key>
 			<string>Build 6883 final</string>
 			<key>timeStartedRecording</key>
-			<real>673756305.40547001</real>
+			<real>673913656.20648098</real>
 			<key>timeStoppedRecording</key>
-			<real>673756306.86779404</real>
+			<real>673913657.15255797</real>
 			<key>title</key>
 			<string>Build 6883 final</string>
 			<key>uniqueIdentifier</key>
-			<string>9D316233-34A6-4E7A-8B4E-8B320AE1ED1B</string>
+			<string>B22F83BD-F01B-4D26-9CC9-95DA380EBEAD</string>
 		</dict>
-		<key>E9C9E9EE-757F-410A-A3D3-F4623BC311C9</key>
+		<key>B4800E81-2901-4290-B68F-AA55E2CB159D</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogSection</string>
@@ -83,7 +83,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>E9C9E9EE-757F-410A-A3D3-F4623BC311C9.xcactivitylog</string>
+			<string>B4800E81-2901-4290-B68F-AA55E2CB159D.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -100,13 +100,13 @@
 			<key>signature</key>
 			<string>Build 6883 final</string>
 			<key>timeStartedRecording</key>
-			<real>673657445.79687297</real>
+			<real>673913640.83250904</real>
 			<key>timeStoppedRecording</key>
-			<real>673657447.15278304</real>
+			<real>673913644.33729601</real>
 			<key>title</key>
 			<string>Build 6883 final</string>
 			<key>uniqueIdentifier</key>
-			<string>E9C9E9EE-757F-410A-A3D3-F4623BC311C9</string>
+			<string>B4800E81-2901-4290-B68F-AA55E2CB159D</string>
 		</dict>
 	</dict>
 </dict>

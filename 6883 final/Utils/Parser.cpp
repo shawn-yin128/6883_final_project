@@ -102,7 +102,7 @@ namespace fre {
     }
 
 
-    map<string, Stock> Parser::populateDate() {
+    map<string, Stock> Parser::populateData() {
         map<string, Stock> Stocks;
         for (string str : symbolVector) {
             Stock stock(str);

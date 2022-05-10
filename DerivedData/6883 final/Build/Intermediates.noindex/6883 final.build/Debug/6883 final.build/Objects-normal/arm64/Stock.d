@@ -1,5 +1,5 @@
 dependencies: \
-  /Volumes/Study/SchoolWork/NYU\ -\ Master/22Spring/6883\ fin\ computing/team\ project/6883\ final/6883\ final/Models/Stock.cpp \
-  /Volumes/Study/SchoolWork/NYU\ -\ Master/22Spring/6883\ fin\ computing/team\ project/6883\ final/6883\ final/Models/Stock.hpp \
-  /Volumes/Study/SchoolWork/NYU\ -\ Master/22Spring/6883\ fin\ computing/team\ project/6883\ final/6883\ final/Models/Trade.hpp \
-  /Volumes/Study/SchoolWork/NYU\ -\ Master/22Spring/6883\ fin\ computing/team\ project/6883\ final/6883\ final/Models/../Utils/Utils.hpp
+  /Users/shawn/Desktop/final/NYU_FRE_6883_final_project/6883\ final/Models/Stock.cpp \
+  /Users/shawn/Desktop/final/NYU_FRE_6883_final_project/6883\ final/Models/Stock.hpp \
+  /Users/shawn/Desktop/final/NYU_FRE_6883_final_project/6883\ final/Models/Trade.hpp \
+  /Users/shawn/Desktop/final/NYU_FRE_6883_final_project/6883\ final/Models/../Utils/Utils.hpp

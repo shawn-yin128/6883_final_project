@@ -10,7 +10,6 @@ namespace fre {
 		const string EXE_PATH_PC = "C:\\PROGRA~1\\gnuplot\\bin\\gnuplot.exe";
 		const string EXE_PATH_MAC = "/opt/local/bin/gnuplot";
 
-		
 		Vector xData;
 
 		void _plotResults(const Vector& xData, map<string, Vector>& yData);

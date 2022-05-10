@@ -27,7 +27,7 @@ namespace fre {
         Parser parser(configFile);
         parser.loadSymbol(annFile);
         parser.setData(plainData);
-        map<string, Stock> stocks = parser.populateDate();
+        map<string, Stock> stocks = parser.populateData();
         return stocks;
     }
 }

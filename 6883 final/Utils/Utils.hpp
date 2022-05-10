@@ -59,22 +59,6 @@ namespace fre {
             mapKeys.push_back(imap.first);
         return mapKeys;
     }
-    
-    //ostream& progressBar(ostream& out, int k, int N) {
-    //    int barWidth = 70;
-    //    double progress = (k + 1.0) / N;
-    //    out << "[";
-    //    int pos = barWidth * progress;
-    //    for (int i = 0; i < barWidth; ++i) {
-    //        if (i < pos) out << "=";
-    //        else if (i == pos) out << ">";
-    //        else out << " ";
-    //    }
-    //    out << "] " << int(progress * 100.0) << " %\r";
-    //    out.flush();
-
-    //    return out;
-    //}
 }
 
 #endif /* Utils_hpp */
