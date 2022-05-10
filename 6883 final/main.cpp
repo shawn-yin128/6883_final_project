@@ -16,9 +16,9 @@ using namespace std;
 using namespace fre;
 
 const string CONFIG = "config_mac.csv";
-//const string SYMBOL = "Russell_3000_component_stocks_test.csv";
 const string SYMBOL = "Russell_3000_component_stocks.csv";
 const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements.csv";
+//const string SYMBOL = "Russell_3000_component_stocks_test.csv";
 //const string ANNOUNCEMENT = "Russell3000EarningsAnnouncements_test.csv";
 
 bool dowanloadFlag = 0;
@@ -97,7 +97,7 @@ int main(void) {
                     cout << "Invalid valud N: 60 <= N <= 90 " << endl;
                     goto InputN;
                 }
-
+                
                 for (map<string, Stock>::iterator itr = stocks.begin(); itr != stocks.end(); itr++) {
                     if (itr->second.computeUsedData(N)) {
                         itr->second.computeAR(N, IWV);
@@ -163,8 +163,12 @@ int main(void) {
                 break;
             }
             case 2: {
+                // We assume at least one stock is valid for this program.
+                if (validStocks.size() == 0){
+                    cout << "N is not specified yet. Please choose 1 in Menu and input N." << endl;
+                    break;
+                }
             Peak1Stock:
-
                 string ticker;
                 cout << "Please enter Ticker or enter 0 to return Menu: ";
                 cin >> ticker;
